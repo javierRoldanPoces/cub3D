@@ -57,6 +57,9 @@ clean:
 		$(RM) -r $(OBJT_DIR)
 
 fclean: clean
+		$(RM) $(LIBFT)
+		$(RM) $(GNL)
+		$(RM) $(MLX42)
 		$(RM) $(NAME)
 
 re: fclean all
