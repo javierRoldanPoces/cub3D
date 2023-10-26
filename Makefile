@@ -30,7 +30,7 @@ CFLAGS = -Wall -Wextra -Werror
 
 RM = rm -f
 
-#MAKEFLAGS += --quiet
+MAKEFLAGS += --quiet
 
 all: $(LIBFT) $(GNL) $(MLX42) $(NAME)
 

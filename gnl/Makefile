@@ -13,7 +13,7 @@ RM = rm -f
 
 CFLAGS = -Wall -Wextra -Werror
 
-#MAKEFLAGS += --quiet
+MAKEFLAGS += --quiet
 
 all: $(NAME)
 
