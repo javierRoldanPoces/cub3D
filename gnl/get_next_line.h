@@ -3,30 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Jroldan- <jroldan-@student.42malaga.com    +#+  +:+       +#+        */
+/*   By: imoro-sa <imoro-sa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/27 12:47:02 by jroldan-          #+#    #+#             */
-/*   Updated: 2023/02/09 18:55:35 by Jroldan-         ###   ########.fr       */
+/*   Created: 2023/02/01 11:04:48 by imoro-sa          #+#    #+#             */
+/*   Updated: 2023/02/19 15:47:42 by imoro-sa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 18
+#  define BUFFER_SIZE 50
 # endif
 
-# include <stdlib.h>
-# include <fcntl.h>
 # include <unistd.h>
-
-# include <sys/types.h>
-# include <sys/uio.h>
 # include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <fcntl.h>
 
-char	*ft_strjoin(char *readed, char *buffer);
-char	*ft_strchr(const char *s, int c);
+//get_next_line
 char	*get_next_line(int fd);
-char	*ft_calloc(size_t count, size_t size);
-size_t	ft_strlen(const char *s);
+char	*read_fd(int fd, char *static_buffer);
+char	*return_line(char *static_buffer);
+char	*return_static(char *static_buffer);
+void	*gnl_calloc(size_t nmemb, size_t size);
+
+//get_next_line_utils
+int		gnl_strlen(char *s);
+char	*gnl_strchr(char *s, int c);
+char	*gnl_strdup(char *s);
+char	*gnl_strjoin(char *s1, char *s2, int flag);
+char	*gnl_substr(char *s, unsigned int start, size_t len, int flag);
+
 #endif
