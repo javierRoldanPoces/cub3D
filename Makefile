@@ -16,7 +16,7 @@ SRC =	src/									\
 
 OBJT_DIR = objt
 
-OBJT = $(addprefix $(OBJT_DIR)/, $(patsubst %.c, %.o, $(SRC)))
+OBJT = $(addprefix $(OBJT_DIR)/, $(patsubst %.c, %.o, $(patsubst src/%, , $(SRC))))
 
 LIBFT_DIR = ./libft
 
