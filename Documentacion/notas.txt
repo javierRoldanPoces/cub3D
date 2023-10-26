@@ -1,0 +1,296 @@
+ 
+// Fuente apuntes repo https://github.com/madebypixel02/cub3d#installation
+A - Atributos necesarios para la proyección:
+
+	1 Campo de visión del jugador (En el ejemplo 60') FOV
+	
+	2 Mitad del campo de visión del jugador (ejemplo : 60 / 2) HFOV
+
+	3 Angulo de dirección de la vista del jugador.( Ejemplo N (270º), S (90º), W (180º), E (0º) RAY_ANGLE
+
+	4  Diferencia de angulo entre un rayo y el siguiente (2 * HFOV / window_width) RAY_INCREMENT_ANGULE
+
+	5 Tamaño de los pasos en cada iteración (Ej: 50) PRECISIÓN
+
+	6 Limite de distancia que el jugador puede ver (EJ : 11) LIMIT
+
+	7 Centro del cuadrado donde esta el jugador ( (int)(player_x + 0,5), (int)(playaer_y + 0,5)) PLAYER`S_POSITION
+ 
+
+B - Desde la posición del jugador, movemos el rayo hacia delante incrementando las coordenadas x e y del rayo
+	
+	ray.x += ray_cos;
+	ray.y += ray_sin; 
+
+	Donde ray_cos y Ray_sin son :
+	
+	ray_cos = cos(degree_to_radians(ray_angle)) / g->ray.precision;
+	
+	ray_sin = sin(degree_to_radians(ray_angle)) / g->ray.precision;
+
+C- Repetimos paso hasta llegar al limite o chocar contra un muro
+
+D - Calculamos la distancia entre la posición del jugador y la del rayo usando la distancia Euclidiana 
+
+	* Distancia euclidiana : Medida de distancia entre dos puntos en un espacio geométrico. En un espacio bidimensional la formula para calculara
+	 es d= Raiz cuadrada ((x2 - x1)² + (y2 – y1)²)
+
+	Esta fórmula mide la longitud del segmento de línea recta que conecta los dos puntos A y B. La raíz cuadrada en la fórmula garantiza 
+	que obtengas una distancia real positiva.
+
+	distance = sqrt(powf(x - pl.x - 0.5, 2.) + powf(y - pl.y - 0.5, 2.)); // En c
+
+E - Arreglamos ojo de pez: Este algoritmo se repite window_width veces, es decir, en cada iteración incrementamos el ángulo hasta haber recorrido 
+	todo el campo de visión. Esta distancia es realmente útil para calcular la altura de la pared:
+	
+	wall_height = (window_height / (1.5 * distance));
+
+	TEXTURAS
+
+Una vez que hemos golpeado una pared y sabemos su posición y distancia al jugador, debemos comprobar qué lado fue golpeado y elegir la textura correcta
+para ese lado de la pared. Con el archivo de textura correcto y la altura adecuada de la pared a mano podemos leer los píxeles del archivo de textura en 
+un ancho determinado y copiarlos a la pantalla, siguiendo esta fórmula:
+
+
+/* Get the color from image i at the given x and y pixel */
+
+color = my_mlx_pixel_get(i, (int)(i->width * (g->x + g->y)) % i->width, z);
+
+Nota: en algunos casos la altura del sprite es menor que la altura del sprite que tenemos que dibujar.
+
+Tenemos un algoritmo que efectivamente 'estira' el sprite para que se ajuste a la altura adecuada
+
+Parece ser que la implementación del minimapa nos evitara problemas a la hora de transmitir los rayos y es mejor hacer los calculos sobre la implementacion 2D del minimap ?¿¿?¿?
+
+
+RayCasting -> Dispara un rayo por cada columna de pixeles.
+
+
+ Notas tutorial oficial 
+ 
+ Variables:
+ 
+ posX y posY 		-> representan el vector de posición del jugador (posición en la matriz del mapa)
+ dirX y dirY 		-> representan la direccion del jugador 
+ planeX y planeY 	-> representan el plano de camara
+ 
+ * Recuerda que el plano de camara tiene que ser perpendicular al plano de direccion 
+ 
+ La  relación entre la longitud del vector dirección y el vector del plano de camara determina FOV (Campo de vision), Aqui la longitud del vector de direccioin 
+ sera mayor que la longitud del plano de camara por tanto sera menor que 90 grados (more precisely, the FOV is 2 * atan(0.66/1.0)=66°)perfecto para wolfenstein_fuck
+
+Variables de tiempo:
+
+	time		-> Hora del fotograma actual
+	old_time	-> Hora del fotograma anterior
+	
+	//la diferencia de tiempo entre estos dos se puede utilizar para determinar cuánto debes moverte cuando se presiona una determinada tecla (para moverte a una 
+		velocidad constante sin importar cuánto tarde el cálculo de los fotogramas), y para el contador de FPS.
+
+
+Creamos la vista (pantalla) con na resolución a nuestra eleccion , no demasiada alta para no relentizar.
+	 screen(screenWidth, screenHeight, 0, "Raycaster");
+	 
+A continuación iniciamos bluce del juego:
+
+	While(!done)
+	{
+		.......
+El buclde de Raycasting es un bucle que pasa por cada X, por tanto es un calculo que pasa por cada linea vertical
+
+El rayo comienza en la posicion del jugador(posX, posY)
+
+ 	cameraX	->es la coordenada x en el plano de la cámara que representa la coordenada x actual de la pantalla, hecho de esta manera para que el lado derecho de la pantalla 
+ 		obtenga la coordenada 1, el centro de la pantalla obtenga la coordenada 0 y el lado izquierdo de la pantalla obtiene la coordenada -1.
+
+	A partir de esto la direccion del rayo s epuede calcular como la suma del vector de dirección y una parte del vector de plano nde camara, Se debe hacer tanto para las
+	coordenadas x como para las y, // Sumar dos vectores es sumar ambas coordenadas.
+	
+	
+    for(int x = 0; x < w; x++)
+    {
+      //calculate ray position and direction
+      double cameraX = 2 * x / double(w) - 1; //x-coordinate in camera space
+      double rayDirX = dirX + planeX * cameraX;
+      double rayDirY = dirY + planeY * cameraX;
+
+
+El algoritmo DDA (Digital Differential Analyzer) es un algoritmo utilizado en gráficos por computadora para dibujar líneas rectas en una pantalla o en un plano cartesiano. 
+El algoritmo DDA se basa en la idea de tomar dos puntos, el punto de inicio (x1, y1) y el punto final (x2, y2), y luego calcular los valores de las coordenadas (x, y) de los píxeles que forman la línea recta que conecta estos dos puntos. El algoritmo utiliza la pendiente de la línea y el concepto de incremento constante en una de las coordenadas para determinar cómo cambiar la otra coordenada en incrementos constantes.
+
+Variables relacionadas con el algoritmo DDA:
+
+
+	mapX y mapY -> Representan el cuadrado actual del mapa en el que se encuentra el rayo. La posición del rayo en sí es un número de punto flotante y contiene información sobre en qué
+                       cuadrado del mapa estamos y en qué lugar de ese cuadrado estamos, pero mapX y mapY son solo las coordenadas de ese cuadrado.
+                       
+	
+	sideDistX y sideDistY -> distancia que el rayo tiene que recorrer desde su posición inicial hasta el primer lado x y el primer lado y. 
+	Más adelante en el código se incrementarán mientras se toman medidas.
+
+	deltaDistX y deltaDistY son la distancia que debe recorrer el rayo para pasar de 1 lado x al siguiente lado x, o de 1 lado y al siguiente lado y. 
+	La siguiente imagen muestra los sideDistX, sideDistY, deltaDistX y deltaDistY iniciales:
+
+
+Al derivar deltaDistX geométricamente se obtienen, con Pitágoras, las fórmulas siguientes. Para el triángulo azul (deltaDistX), un lado tiene longitud 1 (ya que es exactamente una celda) y el otro tiene longitud raydirY / raydirX porque es exactamente la cantidad de unidades que recorre el rayo en la dirección y cuando da 1 paso la dirección X. Para el triángulo verde (deltaDistY), la fórmula es similar:
+	deltaDistX = sqrt(1 + (rayDirY * rayDirY) / (rayDirX * rayDirX))
+	deltaDistY = sqrt(1 + (rayDirX * rayDirX) / (rayDirY * rayDirY))
+	
+	Se puede simplificar a:
+	
+	deltaDistX = abs(|rayDir| / rayDirX)
+	dekltaDistY = abs (|rayDir| / rayDirY)
+	
+	* Donde |rayDir| es la lonfitud del vector rayDirx,rayDirY (sqrt(rayDirx² + rayDirY`2)
+	*Sin embargo, podemos usar 1 en lugar de |rayDir|, porque solo la *relación* entre deltaDistX y deltaDistY importa para el código DDA que sigue más adelante,
+	 por lo que obtenemos:
+	 			
+	 			deltaDistX = abs(1 / rayDirX)
+				deltaDistY = abs(1 / rayDirY)
+
+El algoritmo DDA siempre saltará exactamente un cuadrado en cada bucle, ya sea un cuadrado en la dirección x o un cuadrado en la dirección y. Si tiene que ir en la dirección x negativa o positiva,
+y la dirección y negativa o positiva dependerá de la dirección del rayo, y este hecho se almacenará en stepX y el stepY. Esas variables son siempre -1 o +1.
+
+Finalmente, hit se usa para determinar si el bucle siguiente puede terminar o no, y side contendrá si se golpeó un lado x o un lado y de una pared. Si se golpeó un lado x, side se establece en 0, si se golpeó un lado y, side será 1. Por lado x y lado y, me refiero a las líneas de la cuadrícula que son los límites entre dos cuadrados. .
+
+
+      //which box of the map we're in
+      int mapX = int(posX);
+      int mapY = int(posY);
+
+      //length of ray from current position to next x or y-side
+      double sideDistX;
+      double sideDistY;
+
+       //length of ray from one x or y-side to next x or y-side
+      double deltaDistX = (rayDirX == 0) ? 1e30 : std::abs(1 / rayDirX);
+      double deltaDistY = (rayDirY == 0) ? 1e30 : std::abs(1 / rayDirY);
+      double perpWallDist;
+
+      //what direction to step in x or y-direction (either +1 or -1)
+      int stepX;
+      int stepY;
+
+      int hit = 0; //was there a wall hit?
+      int side; //was a NS or a EW wall hit? (0 or 1)
+
+
+NOTA: Si rayDirX o rayDirY son 0, la división por cero se evita configurándola en un valor muy alto 1e30. Si está utilizando un lenguaje como C++, Java o JS, esto no es realmente necesario, ya que es compatible con el estándar de punto flotante IEEE 754, lo que da el resultado Infinity, que funciona correctamente en el código siguiente. Sin embargo, algunos otros lenguajes, como Python, no permiten la división hasta cero, por lo que arriba se proporciona el código más genérico que funciona en todas partes. 1e30 es un número suficientemente alto elegido arbitrariamente y se puede establecer en Infinito si su lenguaje de programación admite la asignación de ese valor.
+
+Ahora debemos calcular stepX, stepY y los sideDistX y sideDistY iniciales.
+
+Si la dirección del rayo tiene un componente x negativo, el stepX es -1, si la dirección del rayo tiene un componente x positivo stepX +1. Si el componente x es 0, no importa el valor que tenga stepX, ya que entonces no se utilizará. Lo mismo ocurre con el componente y.
+
+Si la dirección del rayo tiene un componente x negativo, sideDistX es la distancia desde la posición inicial del rayo hasta el primer lado a la izquierda; 
+si la dirección del rayo tiene un componente x positivo, se usa el primer lado a la derecha.
+
+Lo mismo ocurre con el componente y, pero ahora con el primer lado por encima o por debajo de la posición.
+
+Para estos valores se utiliza el valor entero mapX y se le resta la posición real, y en algunos de los casos se suma 1 or 0 dependiendo de si se utiliza el lado de la izquierda o de la derecha,
+ de arriba o de abajo. Luego obtienes la distancia perpendicular a este lado, así que multiplícala con deltaDistX o deltaDistY para obtener la distancia euclidiana real.
+
+
+	
+      //calculate step and initial sideDist
+      if (rayDirX < 0)
+      {
+        stepX = -1;
+        sideDistX = (posX - mapX) * deltaDistX;
+      }
+      else
+      {
+        stepX = 1;
+        sideDistX = (mapX + 1.0 - posX) * deltaDistX;
+      }
+      if (rayDirY < 0)
+      {
+        stepY = -1;
+        sideDistY = (posY - mapY) * deltaDistY;
+      }
+      else
+      {
+        stepY = 1;
+        sideDistY = (mapY + 1.0 - posY) * deltaDistY;
+      }
+
+Ahora comienza el PDD propiamente dicho. Es un bucle que incrementa el rayo en 1 cuadrado cada vez, hasta que choca contra una pared. Cada vez que salta un cuadrado en la dirección x (con stepX) o un cuadrado en la dirección y (con stepY), siempre salta 1 cuadrado a la vez. Si la dirección del rayo fuera la dirección x, el bucle solo tendrá que saltar un cuadrado en la dirección x cada vez, 
+porque el rayo nunca cambiará su dirección y. Si el rayo está un poco inclinado hacia la dirección y, entonces cada tantos saltos en la dirección x, el rayo tendrá que saltar un cuadrado en la 
+dirección y. Si el rayo está exactamente en la dirección y, nunca tiene que saltar en la dirección x, etc.
+
+
+sideDistX y sideDistY se incrementan con deltaDistX con cada salto en su dirección, y mapX y mapY se incrementan con stepX y stepY respectivamente.
+
+Cuando el rayo golpea un muro , el bucle termina, y entonces sabemos si un ladox o lado y de un muro fue golpeado en la variable side y que muro esta golpeando con las variables mapX y mapY.
+Sin embargo no sabremoes exactamente donde fue golpeada la pared, pero aun no es necesario pq no estamos usando actualmente paredes textturizadas
+
+		
+      //Desarrollo de DDA
+      while (hit == 0)
+      {
+        //Saltar al siguiente cuadrado del mapa , cualquiera en x -direction o en y-direction
+        if (sideDistX < sideDistY)
+        {
+          sideDistX += deltaDistX;
+          mapX += stepX;
+          side = 0;
+        }
+        else
+        {
+          sideDistY += deltaDistY;
+          mapY += stepY;
+          side = 1;
+        }
+        //Check si el rayo ha golpeado una pared
+        if (worldMap[mapX][mapY] > 0) hit = 1;
+      } 
+
+
+Una vez realizado el DDA, tenemos que calcular la distancia del rayo a la pared, para poder calcular a qué altura debe dibujarse la pared después de esto.
+
+No usamos la distancia euclidiana al punto que representa al jugador, sino la distancia al plano de la cámara (o la distancia del punto proyectado en la dirección de la cámara al jugador),
+para evitar el efecto de ojo de pez. El efecto ojo de pez es un efecto que ves si usas la distancia real, donde todas las paredes se redondean y puede enfermarte si giras.
+
+La siguiente imagen muestra por qué tomamos la distancia al plano de la cámara en lugar del jugador. Con P el jugador y la línea negra el plano de la cámara: a la izquierda del jugador, se muestran unos cuantos rayos rojos desde los puntos de vida en la pared hasta el jugador, que representan la distancia euclidiana. En el lado derecho del jugador, se muestran algunos rayos verdes que van desde los puntos de vida en la pared directamente al plano de la cámara en lugar de al jugador. Entonces, las longitudes de esas líneas verdes son ejemplos de la distancia perpendicular que usaremos en lugar de la distancia euclidiana directa.
+
+En la imagen, el jugador mira directamente a la pared y, en ese caso, esperaría que la parte inferior y superior de la pared formen una línea perfectamente horizontal en la pantalla.
+Sin embargo, todos los rayos rojos tienen una longitud diferente, por lo que se calcularían diferentes alturas de pared para diferentes franjas verticales, de ahí el efecto redondeado.
+Todos los rayos verdes de la derecha tienen la misma longitud, por lo que darán el resultado correcto. Lo mismo se aplica cuando el jugador gira (entonces el plano de la cámara ya no 
+es horizontal y las líneas verdes tendrán diferentes longitudes, pero aún con un cambio constante entre cada una) y las paredes se convierten en líneas diagonales pero rectas en 
+la pantalla. Esta explicación es algo manual pero da una idea.
+
+Tenga en cuenta que esta parte del código no es "corrección de ojo de pez", dicha corrección no es necesaria para la forma de transmisión de rayos utilizada aquí; el efecto de ojo de pez simplemente se evita mediante la forma en que se calcula la distancia aquí. Es incluso más fácil calcular esta distancia perpendicular que la distancia real, ni siquiera necesitamos saber el lugar
+exacto donde se golpeó la pared.
+
+Esta distancia perpendicular se denomina "perpWallDist" en el código. Una forma de calcularlo es usar la fórmula para la distancia más corta desde un punto a una línea, donde el punto
+es donde se golpeó la pared y la línea es el plano de la cámara.
+
+Sin embargo, se puede calcular de forma más sencilla: debido a cómo se escalaron deltaDist y sideDist mediante un factor de |rayDir| arriba, la longitud de sideDist ya casi es
+igual a perpWallDist. Solo necesitamos restarle deltaDist una vez, retrocediendo un paso, porque en los pasos anteriores de DDA fuimos un paso más para terminar dentro de la pared.
+
+Dependiendo de si el rayo incide en el lado X o en el lado Y, la fórmula se calcula usando sideDistX o sideDistY.
+
+	//Calculate distance projected on camera direction (Euclidean distance would give fisheye effect!)
+	if(side == 0) 
+		perpWallDist = (sideDistX - deltaDistX);
+	else          
+      		perpWallDist = (sideDistY - deltaDistY);
+
+
+En la imagen siguiente se muestra una derivación más detallada de la fórmula perpWallDist, para el caso del lado == 1.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
