@@ -10,16 +10,20 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../../include/cub3D.h"
 
-int	gnl_strlen(char *s)
+void	*gnl_calloc(size_t nmemb, size_t size)
 {
-	int	i;
+	char	*str;
+	size_t	i;
 
+	str = (char *) malloc(size * nmemb);
+	if (str == NULL)
+		return (NULL);
 	i = 0;
-	while (s[i] != '\0')
-		i++;
-	return (i);
+	while (i < (size * nmemb))
+		str[i++] = '\0';
+	return (str);
 }
 
 char	*gnl_strchr(char *s, int c)
@@ -46,7 +50,7 @@ char	*gnl_strdup(char *s)
 	int		i;
 
 	i = 0;
-	str = gnl_calloc(gnl_strlen(s) + 1, sizeof (char));
+	str = gnl_calloc(ft_strlen(s) + 1, sizeof (char));
 	if (str == NULL)
 		return (NULL);
 	while (s[i] != '\0')
@@ -64,7 +68,7 @@ char	*gnl_strjoin(char *s1, char *s2, int flag)
 	size_t	i;
 	size_t	j;
 
-	str = gnl_calloc(gnl_strlen(s1) + gnl_strlen(s2) + 1, sizeof(char));
+	str = gnl_calloc(ft_strlen(s1) + ft_strlen(s2) + 1, sizeof(char));
 	if (str == NULL)
 		return (NULL);
 	i = 0;
@@ -95,10 +99,10 @@ char	*gnl_substr(char *s, unsigned int start, size_t len, int flag)
 	i = 0;
 	if (!s)
 		return (NULL);
-	if ((size_t)gnl_strlen(s) < (size_t)start)
+	if ((size_t)ft_strlen(s) < (size_t)start)
 		return (gnl_strdup(""));
-	if (len > (gnl_strlen(s) - (size_t)start))
-		len = gnl_strlen(s) - (size_t)start;
+	if (len > (ft_strlen(s) - (size_t)start))
+		len = ft_strlen(s) - (size_t)start;
 	str = (char *) malloc (sizeof (char) * len + 1);
 	if (!str)
 		return (NULL);

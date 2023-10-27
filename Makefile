@@ -6,7 +6,9 @@ else
 	INCFLAGS = -ldl -DEBUG=1 -Iinclude -lglfw -L"usr/lib/x86_64-linux-gnu/"
 endif
 
-SRC =	src/main.c
+SRC =		src/main.c							\
+			src/gnl/get_next_line.c				\
+			src/gnl/get_next_line_utils.c			\
 
 OBJT_DIR = objt
 
@@ -15,10 +17,6 @@ OBJT = $(addprefix $(OBJT_DIR)/, $(patsubst %.c, %.o, $(SRC)))
 LIBFT_DIR = ./libft
 
 LIBFT = libft/libft.a
-
-GNL_DIR = ./gnl
-
-GNL = ./gnl/get_next_line.a
 
 MLX42_DIR = ./MLX42
 
@@ -32,10 +30,10 @@ RM = rm -f
 
 MAKEFLAGS += --quiet
 
-all: $(LIBFT) $(GNL) $(MLX42) $(NAME)
+all: $(LIBFT) $(MLX42) $(NAME)
 
 $(NAME): $(OBJT)
-	$(CC) $(CFLAGS) $(OBJT) -o $(NAME) -lm $(LIBFT) $(GNL) $(MLX42) $(INCFLAGS)
+	$(CC) $(CFLAGS) $(OBJT) -o $(NAME) -lm $(LIBFT) $(MLX42) $(INCFLAGS)
 
 $(OBJT_DIR)/%.o: %.c
 	mkdir -p $(@D)
@@ -44,21 +42,16 @@ $(OBJT_DIR)/%.o: %.c
 $(LIBFT):
 		$(MAKE) -C $(LIBFT_DIR)
 
-$(GNL):
-		$(MAKE) -C $(GNL_DIR)
-
 $(MLX42):
 		$(MAKE) -C $(MLX42_DIR)
 
 clean:
 		$(MAKE) clean -C $(LIBFT_DIR)
-		$(MAKE) clean -C $(GNL_DIR)
 		$(MAKE) clean -C $(MLX42_DIR)
 		$(RM) -r $(OBJT_DIR)
 
 fclean: clean
 		$(RM) $(LIBFT)
-		$(RM) $(GNL)
 		$(RM) $(MLX42)
 		$(RM) $(NAME)
 

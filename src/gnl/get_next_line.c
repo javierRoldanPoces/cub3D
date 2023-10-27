@@ -10,24 +10,13 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../../include/cub3D.h"
 
-char	*get_next_line(int fd)
-{
-	static char		*static_buffer;
-	char			*buffer;
+static char	*read_fd(int fd, char *static_buffer);
+static char	*return_line(char *static_buffer);
+static char	*return_static(char *static_buffer);
 
-	if (fd == -1)
-		return (NULL);
-	static_buffer = read_fd(fd, static_buffer);
-	if (static_buffer == NULL || !static_buffer)
-		return (NULL);
-	buffer = return_line(static_buffer);
-	static_buffer = return_static(static_buffer);
-	return (buffer);
-}
-
-char	*read_fd(int fd, char *static_buffer)
+static char	*read_fd(int fd, char *static_buffer)
 {
 	char		*buffer;
 	long int	bytes_read;
@@ -37,8 +26,8 @@ char	*read_fd(int fd, char *static_buffer)
 	bytes_read = 1;
 	while (bytes_read > 0 && !(gnl_strchr(static_buffer, 10)))
 	{
-		buffer = gnl_calloc(BUFFER_SIZE + 1, sizeof(char));
-		bytes_read = read(fd, buffer, BUFFER_SIZE);
+		buffer = gnl_calloc(50 + 1, sizeof(char));
+		bytes_read = read(fd, buffer, 50);
 		if (bytes_read == -1)
 			return (free(buffer), free(static_buffer), NULL);
 		else if (bytes_read == 0)
@@ -52,7 +41,7 @@ char	*read_fd(int fd, char *static_buffer)
 	return (static_buffer);
 }
 
-char	*return_line(char *static_buffer)
+static char	*return_line(char *static_buffer)
 {
 	char	*buffer;
 	int		length;
@@ -69,7 +58,7 @@ char	*return_line(char *static_buffer)
 	return (static_buffer);
 }
 
-char	*return_static(char *static_buffer)
+static char	*return_static(char *static_buffer)
 {
 	char	*buffer;
 	int		n;
@@ -92,16 +81,17 @@ char	*return_static(char *static_buffer)
 	return (NULL);
 }
 
-void	*gnl_calloc(size_t nmemb, size_t size)
+char	*get_next_line(int fd)
 {
-	char	*str;
-	size_t	i;
+	static char		*static_buffer;
+	char			*buffer;
 
-	str = (char *) malloc(size * nmemb);
-	if (str == NULL)
+	if (fd == -1)
 		return (NULL);
-	i = 0;
-	while (i < (size * nmemb))
-		str[i++] = '\0';
-	return (str);
+	static_buffer = read_fd(fd, static_buffer);
+	if (static_buffer == NULL || !static_buffer)
+		return (NULL);
+	buffer = return_line(static_buffer);
+	static_buffer = return_static(static_buffer);
+	return (buffer);
 }
