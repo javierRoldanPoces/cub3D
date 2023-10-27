@@ -1,0 +1,53 @@
+NO ./path_to_the_north_texture
+SO ./path_to_the_south_texture
+WE ./path_to_the_west_texture
+EA ./path_to_the_east_texture
+
+- Comprobar que está NO, SO, WE y EA, están separados por un espacio, y que están en ese orden.
+- Comprobar que sólo existe un path_to_texture.
+- Comprobar que se puede abrir el archivo de texturas.
+
+--------------------------------------------------------------------------------
+
+F 220,100,0
+C 225,30,0
+
+- Comprobar que está la F y la C, están separados por un espacio, y que están en orden.
+- Comprobar que existen 3 elementos (RGB).
+- Comprobar que el rango de los números no supera 255.
+
+--------------------------------------------------------------------------------
+
+                       1111      
+                       1001      
+        1111111111111111001111111
+        1000000000110000000000001
+        1011000001110000000000001
+        1001000000000000000000001
+111111111011000001110000000000001
+100000000011000001110111111111111
+11110111111111011100000010001    
+11110111111111011101010010001    
+11000000110101011100000010001    
+10000000000000001100000010001    
+10000000000000001101010010001    
+11000001110101011111011110N0111  
+11110111 1110101 101111010001    
+11111111 1111111 111111111111    
+                                  
+11111111                          
+10000001                          
+10000001                          
+11111111                          
+
+- Comprobar que no haya otro carácter diferente a 1, 0, o N.
+- Comprobar que el 0 no esté en los extremos.
+- Comprobar que el no tenga un espacio por ninguno de sus lados.
+- Comprobar que sólo existe un N.
+- Comprobar que no hay espacios alrededor de la N.
+
+- Conversión:
+Si no empieza por NO, SO, WE, EA, F, C entonces es parte del mapa.
+Las líneas más cortas se rellenan con espacios hasta llegar al ancho máximo (width).
+/t = 4 espacios.
+/n = width * espacios.

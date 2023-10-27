@@ -2,11 +2,9 @@
 
 int	main(int argc, char **argv)
 {
-	if (argc > 1 && argv[0] != NULL)
-	{
-		printf("hola!\n");
-		printf("strlen = %d\n", ft_strlen("hola"));
-		printf("%s\n", get_next_line(STDIN_FILENO));
-	}
+	if (argc == 2)
+		check_cub_file(argv[1]);
+	else
+		error("invalid number of arguments", NULL);
 	return (0);
 }
