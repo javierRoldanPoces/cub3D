@@ -2,14 +2,7 @@
 
 void	get_map(int fd, t_map *map)
 {
-	char	*buffer;
-
-	buffer = get_next_line(fd);
-	map = map;
-	while (ft_strncmp(buffer, "\n", 2) == 0)
-	{
-		free(buffer);
-		buffer = get_next_line(fd);
-	}
-	printf("buffer = %s\n", buffer);
+	count_map_lines();
+	get_map_lines();
+	check_map();
 }

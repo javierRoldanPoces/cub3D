@@ -8,6 +8,7 @@ void	get_file_content(char *file, t_map *map)
 		ft_error("unsupported file extension", file);
 	else
 	{
+		map->file = ft_strdup(file);
 		fd = open(file, O_RDONLY);
 		if (fd == -1)
 			ft_error(strerror(errno), file);

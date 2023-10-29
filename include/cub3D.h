@@ -21,6 +21,7 @@ typedef struct s_colour
 
 typedef struct s_map
 {
+	char			*file;
 	char			**matrix;
 	char			*north_texture;
 	char			*south_texture;
