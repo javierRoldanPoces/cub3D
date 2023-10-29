@@ -30,11 +30,21 @@ typedef struct s_map
 	t_colour		*ceiling;
 }					t_map;
 
-//parsing
-void		ft_error(char *message, char *file);
-void		check_cub_file(char *file, t_map *map);
-void		check_file_content(int fd, t_map *map);
+//main
+void		get_file_content(char *file, t_map *map);
+
+//parse/get_map
+void		get_map(int fd, t_map *map);
+
+//parse/get_struct
+void		get_struct(int fd, t_map *map);
+int			get_texture(char **map_texture, char **split, int *counter);
+int			get_colour(t_colour **map_colour, char **split, int *counter);
 int			get_textures_and_colours(char *buffer, int *counter, t_map *map);
+
+//parse/utils
+t_map		*init_struct();
+void		ft_error(char *message, char *file);
 
 //get_next_line
 char		*get_next_line(int fd);
