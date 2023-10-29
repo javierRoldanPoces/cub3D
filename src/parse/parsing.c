@@ -1,21 +1,86 @@
 #include "../../include/cub3D.h"
 
-void	check_cub_file(char *file)
+void	check_cub_file(char *file, t_map *map)
 {
 	int	fd;
 
 	if (ft_strlen(ft_strnstr(file, ".cub", ft_strlen(file))) != 4)
-		error("unsupported file extension", file);
+		ft_error("unsupported file extension", file);
 	else
 	{
 		fd = open(file, O_RDONLY);
 		if (fd == -1)
-			error(strerror(errno), file);
-		// check_file_content(fd);
+			ft_error(strerror(errno), file);
+		check_file_content(fd, map);
 	}
 }
 
-// void	check_file_content(int fd)
-// {
-	
-// }
+void	check_file_content(int fd, t_map *map)
+{
+	char	*buffer;
+	int		counter;
+
+	counter = 0;
+	while (1)
+	{
+		buffer = get_next_line(fd);
+		while (ft_strncmp(buffer, "\n", 2) == 0)
+		{
+			free(buffer);
+			buffer = get_next_line(fd);
+		}
+		if (get_textures_and_colours(buffer, &counter, map) == 5)
+			break ;
+		free(buffer);
+	}
+}
+
+int	get_texture(char **map_texture, char **split, int *counter)
+{
+	*map_texture = ft_strdup(split[1]);
+	ft_free_split(split);
+	return (++*counter);
+}
+
+int	get_colour(t_colour *map_colour, char **split, int *counter)
+{
+	char	**colours;
+
+	colours = ft_split(split[1], ',');
+	if (colours[0] == NULL || colours[1] == NULL
+		|| colours[2] == NULL || colours[3] != NULL)
+		ft_error("invalid number of colours", split[1]);
+	map_colour = (t_colour *)ft_calloc(sizeof(t_colour), 1);
+	map_colour->r = ft_atoi(colours[0]);
+	map_colour->g = ft_atoi(colours[1]);
+	map_colour->b = ft_atoi(colours[2]);
+	if (map_colour->r < 0 || map_colour->r > 255
+		|| map_colour->g < 0 || map_colour->g > 255
+		|| map_colour->b < 0 || map_colour->b > 255)
+		ft_error("invalid range of colours", NULL);
+	ft_free_split(colours);
+	ft_free_split(split);
+	return (++*counter);
+}
+
+int	get_textures_and_colours(char *buffer, int *counter, t_map *map)
+{
+	char	**split;
+
+	split = ft_split(buffer, ' ');
+	if (split[0] == NULL || split[1] == NULL || split[2] != NULL)
+		ft_error("line is not valid", buffer);
+	if (map->north_texture == NULL && ft_strncmp(split[0], "NO", 3) == 0)
+		return (get_texture(&map->north_texture, split, counter));
+	else if (map->south_texture == NULL && ft_strncmp(split[0], "SO", 3) == 0)
+		return (get_texture(&map->south_texture, split, counter));
+	else if (map->west_texture == NULL && ft_strncmp(split[0], "WE", 3) == 0)
+		return (get_texture(&map->west_texture, split, counter));
+	else if (map->east_texture == NULL && ft_strncmp(split[0], "EA", 3) == 0)
+		return (get_texture(&map->east_texture, split, counter));
+	else if (map->floor == NULL && ft_strncmp(split[0], "F", 3) == 0)
+		return (get_colour(map->floor, split, counter));
+	else if (map->ceiling == NULL && ft_strncmp(split[0], "C", 3) == 0)
+		return (get_colour(map->ceiling, split, counter));
+	return (ft_error("invalid map file", NULL), -1);
+}

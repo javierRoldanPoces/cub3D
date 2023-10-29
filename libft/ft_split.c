@@ -52,14 +52,14 @@ static size_t	ft_string_len(char *s, char c, unsigned int start)
 	return (i);
 }
 
-void	ft_free(char **str, int n)
+void	ft_free_split(char **str)
 {
-	while (n > 0)
-	{
-		free (str[n - 1]);
-		n--;
-	}
-	free (str);
+	int	n;
+
+	n = 0;
+	while (str[n] != NULL)
+		free(str[n++]);
+	free(str);
 }
 
 char	**ft_split(char *s, char c)
@@ -79,7 +79,7 @@ char	**ft_split(char *s, char c)
 		str[n] = ft_substr(s, start, (size_t)ft_string_len(s, c, start), 0);
 		if (str[n] == NULL)
 		{
-			ft_free(str, n);
+			ft_free_split(str);
 			return (NULL);
 		}
 		n++;

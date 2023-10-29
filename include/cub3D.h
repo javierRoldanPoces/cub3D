@@ -12,13 +12,12 @@
 # include <sys/types.h>
 # include <unistd.h>
 
-
 typedef struct s_colour
 {
-	uint8_t			r;
-	uint8_t			g;
-	uint8_t			b;
-}				t_colour;
+	int				r;
+	int				g;
+	int				b;
+}					t_colour;
 
 typedef struct s_map
 {
@@ -29,13 +28,13 @@ typedef struct s_map
 	char			*east_texture;
 	t_colour		*floor;
 	t_colour		*ceiling;
-}				t_map;
-
+}					t_map;
 
 //parsing
-void		error(char *message, char *file);
-void		check_cub_file(char *file);
-
+void		ft_error(char *message, char *file);
+void		check_cub_file(char *file, t_map *map);
+void		check_file_content(int fd, t_map *map);
+int			get_textures_and_colours(char *buffer, int *counter, t_map *map);
 
 //get_next_line
 char		*get_next_line(int fd);

@@ -3,16 +3,16 @@ SO ./path_to_the_south_texture
 WE ./path_to_the_west_texture
 EA ./path_to_the_east_texture
 
-- Comprobar que está NO, SO, WE y EA, están separados por un espacio, y que están en ese orden.
+- Comprobar que está NO, SO, WE y EA, están separados por un espacio.
 - Comprobar que sólo existe un path_to_texture.
-- Comprobar que se puede abrir el archivo de texturas.
+- Comprobar que se puede abrir el archivo de texturas. (más adelante, cuando se tenga que abrir)
 
 --------------------------------------------------------------------------------
 
 F 220,100,0
 C 225,30,0
 
-- Comprobar que está la F y la C, están separados por un espacio, y que están en orden.
+- Comprobar que está la F y la C, están separados por un espacio.
 - Comprobar que existen 3 elementos (RGB).
 - Comprobar que el rango de los números no supera 255.
 
