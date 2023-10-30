@@ -11,6 +11,9 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <unistd.h>
+# define BPP sizeof(int32_t)
+# define WIDTH 1024
+# define HEIGHT 512
 
 typedef struct s_colour
 {
