@@ -12,6 +12,7 @@ SRC =		src/main.c							\
 			src/parse/get_map.c					\
 			src/parse/get_struct.c				\
 			src/parse/utils.c					\
+			src/raycast/get_player.c			\
 
 OBJT_DIR = objt
 

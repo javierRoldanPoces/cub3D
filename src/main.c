@@ -19,51 +19,35 @@
 
 int	main(int argc, char **argv)
 {
-	// t_map	*map;
+	mlx_t			*mlx;
+	mlx_image_t		*g_img;
+	t_player		*player;
 
-	// map = init_struct();
-	// if (argc == 2)
-	// {
-	// 	get_file_content(argv[1], map);
-	// }
-	// else
-	// 	ft_error("invalid number of arguments", NULL);
-	// return (0);
-	
-	mlx_t		*mlx;
-	mlx_image_t *g_img;
+
+	uint32_t color_floor = (255 << 24) | (255 << 16) | (255 << 8) | 255;
+
 	(void)argc;
 	(void)argv;
-	uint32_t color = (0 << 24) | (200 << 16) | (0 << 8) | 255;
+	player = ft_calloc(1, sizeof(t_player));
+	int matrix[5][6] = {
+		{1, 1, 1, 1, 1, 1},
+        {1, 0, 0, 1, 0, 1},
+        {1, 0, 1, 0, 0, 1},
+        {1, 1, 0, 0, 5, 1},
+        {1, 1, 1, 1, 1, 1}
+    };
+
+	printf("player representado por el numero  %d \n", matrix[3][4]);
+	init_player(&player);
+	printf("posx posy de t_player contiene el valor  %d \n", matrix[(int)(*player).posx][(int)(*player).posy]);
 
 	mlx = mlx_init(WIDTH, HEIGHT, "cub3D", true);
 	if (!mlx)
 		exit (EXIT_FAILURE);
-	g_img = mlx_new_image(mlx, 1024, 512);
-	memset(g_img->pixels, 150, g_img->width * g_img->height *BPP);
-	int i = 256;
-	int j = 0;
-	while (i < 512)
-	{
-		j = 0;
-		while (j < 512)
-		{
-			mlx_put_pixel(g_img, i, j, color);
-			j++;
-		}
-		i++;
-	}
-	while (i < 1024)
-	{
-		j = 256;
-		while (j < 400)
-		{
-			mlx_put_pixel(g_img, i, j, color);
-			j++;
-		}
-		i++;
-	}
-	mlx_image_to_window(mlx, g_img, 512, 256);
+	g_img = mlx_new_image(mlx, WIDTH, HEIGHT);
+	memset(g_img->pixels, color_floor, g_img->width * g_img->height * sizeof(int32_t));
+
+	mlx_image_to_window(mlx, g_img,  0, 0);
 	mlx_loop(mlx);
 	mlx_terminate(mlx);
 	return (EXIT_SUCCESS);
@@ -79,6 +63,24 @@ uint8_t red = (colorRGBA >> 24) & 0xFF;   // Componente Rojo
 uint8_t green = (colorRGBA >> 16) & 0xFF; // Componente Verde
 uint8_t blue = (colorRGBA >> 8) & 0xFF;   // Componente Azul
 uint8_t alpha = colorRGBA & 0xFF;        // Componente Alfa
+
+uint32_t color = (0 << 24) | (200 << 16) | (0 << 8) | 255;
+
+	// int i = 256;
+	// int j = 0;
+	// while (i < 512)
+	// {
+	// 	j = 0;
+	// 	while (j < 512)
+	// 	{
+	// 		mlx_put_pixel(g_img, i, j, color_wall);
+	// 		j++;
+	// 	}
+	// 	i++;
+	// }
+
+		//uint32_t color_wall = (0 << 24) | (200 << 16) | (0 << 8) | 255;
+
 
 
 

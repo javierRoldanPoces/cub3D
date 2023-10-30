@@ -11,9 +11,42 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <unistd.h>
-# define BPP sizeof(int32_t)
 # define WIDTH 1024
 # define HEIGHT 512
+
+typedef struct s_player
+{
+	double	posx; //pos player
+	double	posy;
+	double	dirx; //Direccion del jugador
+	double	diry;
+	double	planex; //Plano de camara debe ser perpendicular al plano de dirección
+	double	planey;
+	double	camerax;
+	double	raydirx;
+	double 	raydiry;
+	int		mapx;
+	int		mapy;
+}			t_player;
+
+
+// typedef struct s_args
+// {
+// 	mlx_t			*mlx;
+// 	mlx_image_t		*img;
+// 	//mlx_image_t para las texturas ?¿
+// 	t_map			*map;
+// }	t_args;
+
+/*
+	DUDA como y donde declaro el FOV o campo de visión 
+
+ * Recuerda que el plano de camara tiene que ser perpendicular al plano de direccion 
+ 
+ La  relación entre la longitud del vector dirección y el vector del plano de camara determina FOV (Campo de vision), Aqui la longitud del vector de direccioin 
+ sera mayor que la longitud del plano de camara por tanto sera menor que 90 grados (more precisely, the FOV is 2 * atan(0.66/1.0)=66°)perfecto para wolfenstein_fuck
+*/
+
 
 typedef struct s_colour
 {
@@ -57,5 +90,8 @@ char		*gnl_strchr(char *s, int c);
 char		*gnl_strdup(char *s);
 char		*gnl_strjoin(char *s1, char *s2, int flag);
 char		*gnl_substr(char *s, unsigned int start, size_t len, int flag);
+
+//raycast
+void		init_player(t_player **player);
 
 #endif

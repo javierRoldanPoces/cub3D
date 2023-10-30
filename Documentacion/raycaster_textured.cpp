@@ -221,7 +221,7 @@ int main(int /*argc*/, char */*argv*/[])
       // TODO: an integer-only bresenham or DDA like algorithm could make the texture coordinate stepping faster
       // How much to increase the texture coordinate per screen pixel
       double step = 1.0 * texHeight / lineHeight;
-      // Starting texture coordinate
+      // Starting texture coordinate      
       double texPos = (drawStart - pitch - h / 2 + lineHeight / 2) * step;
       for(int y = drawStart; y < drawEnd; y++)
       {
@@ -235,7 +235,7 @@ int main(int /*argc*/, char */*argv*/[])
       }
     }
 
-    drawBuffer(buffer[0]);
+    drawBBuffer(buffer[0]);
     for(int y = 0; y < h; y++) for(int x = 0; x < w; x++) buffer[y][x] = 0; //clear the buffer instead of cls()
     //timing for input and FPS counter
     oldTime = time;

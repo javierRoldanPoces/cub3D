@@ -100,17 +100,18 @@ El buclde de Raycasting es un bucle que pasa por cada X, por tanto es un calculo
 
 El rayo comienza en la posicion del jugador(posX, posY)
 
- 	cameraX	->es la coordenada x en el plano de la cámara que representa la coordenada x actual de la pantalla, hecho de esta manera para que el lado derecho de la pantalla 
- 		obtenga la coordenada 1, el centro de la pantalla obtenga la coordenada 0 y el lado izquierdo de la pantalla obtiene la coordenada -1.
+ 	cameraX	->es la coordenada x en el plano de la cámara que representa la coordenada x actual de la pantalla, hecho de esta manera para que el lado 
+  derecho de la pantalla 	obtenga la coordenada 1, el centro de la pantalla obtenga la coordenada 0 y el lado izquierdo de la pantalla obtiene la 
+  coordenada -1.
 
-	A partir de esto la direccion del rayo s epuede calcular como la suma del vector de dirección y una parte del vector de plano nde camara, Se debe hacer tanto para las
+	A partir de esto la direccion del rayo se puede calcular como la suma del vector de dirección y una parte del vector de plano nde camara, Se debe hacer tanto para las
 	coordenadas x como para las y, // Sumar dos vectores es sumar ambas coordenadas.
 	
 	
     for(int x = 0; x < w; x++)
     {
       //calculate ray position and direction
-      double cameraX = 2 * x / double(w) - 1; //x-coordinate in camera space
+      double cameraX = 2 * x / double(width) - 1; //x-coordinate in camera space
       double rayDirX = dirX + planeX * cameraX;
       double rayDirY = dirY + planeY * cameraX;
 
