@@ -41,10 +41,10 @@ int	main(int argc, char **argv)
 	init_player(&player);
 	printf("posx posy de t_player contiene el valor  %d \n", matrix[(int)(*player).posx][(int)(*player).posy]);
 
-	mlx = mlx_init(WIDTH, HEIGHT, "cub3D", true);
+	mlx = mlx_init(SCREENWIDTH , SCREENHEIGHT, "cub3D", true);
 	if (!mlx)
 		exit (EXIT_FAILURE);
-	g_img = mlx_new_image(mlx, WIDTH, HEIGHT);
+	g_img = mlx_new_image(mlx, SCREENWIDTH, SCREENHEIGHT);
 	memset(g_img->pixels, color_floor, g_img->width * g_img->height * sizeof(int32_t));
 
 	mlx_image_to_window(mlx, g_img,  0, 0);

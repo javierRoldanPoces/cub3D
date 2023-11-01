@@ -84,8 +84,9 @@ Variables de tiempo:
 	time		-> Hora del fotograma actual
 	old_time	-> Hora del fotograma anterior
 	
-	//la diferencia de tiempo entre estos dos se puede utilizar para determinar cuánto debes moverte cuando se presiona una determinada tecla (para moverte a una 
-		velocidad constante sin importar cuánto tarde el cálculo de los fotogramas), y para el contador de FPS.
+	//la diferencia de tiempo entre estos dos se puede utilizar para determinar cuánto debes moverte cuando se
+    presiona una determinada tecla (para moverte a una velocidad constante sin importar cuánto tarde el cálculo de los fotogramas),
+     y para el contador de FPS.
 
 
 Creamos la vista (pantalla) con na resolución a nuestra eleccion , no demasiada alta para no relentizar.
@@ -122,8 +123,9 @@ El algoritmo DDA se basa en la idea de tomar dos puntos, el punto de inicio (x1,
 Variables relacionadas con el algoritmo DDA:
 
 
-	mapX y mapY -> Representan el cuadrado actual del mapa en el que se encuentra el rayo. La posición del rayo en sí es un número de punto flotante y contiene información sobre en qué
-                       cuadrado del mapa estamos y en qué lugar de ese cuadrado estamos, pero mapX y mapY son solo las coordenadas de ese cuadrado.
+	mapX y mapY ->  Representan el cuadrado actual del mapa en el que se encuentra el rayo. La posición del rayo en sí es un número de 
+                  punto flotante y contiene información sobre en qué cuadrado del mapa estamos y en qué lugar de ese cuadrado estamos, 
+                  pero mapX y mapY son solo las coordenadas de ese cuadrado.
                        
 	
 	sideDistX y sideDistY -> distancia que el rayo tiene que recorrer desde su posición inicial hasta el primer lado x y el primer lado y. 
@@ -149,8 +151,10 @@ Al derivar deltaDistX geométricamente se obtienen, con Pitágoras, las fórmula
 	 			deltaDistX = abs(1 / rayDirX)
 				deltaDistY = abs(1 / rayDirY)
 
-El algoritmo DDA siempre saltará exactamente un cuadrado en cada bucle, ya sea un cuadrado en la dirección x o un cuadrado en la dirección y. Si tiene que ir en la dirección x negativa o positiva,
-y la dirección y negativa o positiva dependerá de la dirección del rayo, y este hecho se almacenará en stepX y el stepY. Esas variables son siempre -1 o +1.
+El algoritmo DDA siempre saltará exactamente un cuadrado en cada bucle, ya sea un cuadrado en la dirección x o un cuadrado en la dirección y. 
+Si tiene que ir en la dirección x negativa o positiva,
+y la dirección y negativa o positiva dependerá de la dirección del rayo, y este hecho se almacenará en stepX y el stepY.
+ Esas variables son siempre -1 o +1.
 
 Finalmente, hit se usa para determinar si el bucle siguiente puede terminar o no, y side contendrá si se golpeó un lado x o un lado y de una pared. Si se golpeó un lado x, side se establece en 0, si se golpeó un lado y, side será 1. Por lado x y lado y, me refiero a las líneas de la cuadrícula que son los límites entre dos cuadrados. .
 
