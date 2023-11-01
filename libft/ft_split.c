@@ -22,12 +22,8 @@ static int	ft_string_counter(char *s, char c)
 	while (s[i] != '\0')
 	{
 		if (s[i] != c && (s[i + 1] == c || s[i + 1] == '\0'))
-		{
 			count++;
-			i++;
-		}
-		else
-			i++;
+		i++;
 	}
 	return (count);
 }

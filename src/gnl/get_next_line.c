@@ -83,15 +83,15 @@ static char	*return_static(char *static_buffer)
 
 char	*get_next_line(int fd)
 {
-	static char		*static_buffer;
+	static char		*static_buffer[1024];
 	char			*buffer;
 
 	if (fd == -1)
 		return (NULL);
-	static_buffer = read_fd(fd, static_buffer);
-	if (static_buffer == NULL || !static_buffer)
+	static_buffer[fd] = read_fd(fd, static_buffer[fd]);
+	if (static_buffer[fd] == NULL || !static_buffer[fd])
 		return (NULL);
-	buffer = return_line(static_buffer);
-	static_buffer = return_static(static_buffer);
+	buffer = return_line(static_buffer[fd]);
+	static_buffer[fd] = return_static(static_buffer[fd]);
 	return (buffer);
 }

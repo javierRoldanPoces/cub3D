@@ -9,8 +9,10 @@ endif
 SRC =		src/main.c							\
 			src/gnl/get_next_line.c				\
 			src/gnl/get_next_line_utils.c		\
+			src/parse/check_map.c				\
+			src/parse/get_file_content.c		\
 			src/parse/get_map.c					\
-			src/parse/get_struct.c				\
+			src/parse/get_text_and_colours.c	\
 			src/parse/utils.c					\
 
 OBJT_DIR = objt
