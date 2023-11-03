@@ -40,6 +40,9 @@ void	check_player_position(t_map *map, int n, int i, int *player)
 	if (map->matrix[n][i] == 'N' || map->matrix[n][i] == 'S'
 		|| map->matrix[n][i] == 'W' || map->matrix[n][i] == 'E')
 	{
+		map->p_x = n;
+		map->p_y = i;
+		map->orientation = map->matrix[n][i];
 		if (*player != 0)
 			ft_error("invalid map design", NULL);
 		else

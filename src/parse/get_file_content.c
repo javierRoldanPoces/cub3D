@@ -1,5 +1,15 @@
 #include "../../include/cub3D.h"
 
+//funcion para almacebnar colores como uint_32
+static void	get_color(t_map *map)
+{
+	map->c = (map->floor->r << 24) | (map->floor->g << 16) \
+	| (map->floor->b << 8) | 255;
+	map->f = (map->ceiling->r << 24) | (map->ceiling->g << 16) \
+	| (map->ceiling->b << 8) | 255;
+}
+
+
 void	get_file_content(t_map *map, char *file)
 {
 	int	fd;
@@ -17,25 +27,6 @@ void	get_file_content(t_map *map, char *file)
 		get_textures_and_colours(map, fd, &map_pos);
 		get_map(map, fd, &map_pos);
 		check_map(map);
-//////////////////////////////////////////////////////////////////////////
-		printf("NO = %s\n", map->north_texture);
-		printf("SO = %s\n", map->south_texture);
-		printf("WE = %s\n", map->west_texture);
-		printf("EA = %s\n\n", map->east_texture);
-		printf("floor->r = %d\n", map->floor->r);
-		printf("floor->g = %d\n", map->floor->g);
-		printf("floor->b = %d\n\n", map->floor->b);
-		printf("ceiling->r = %d\n", map->ceiling->r);
-		printf("ceiling->g = %d\n", map->ceiling->g);
-		printf("ceiling->b = %d\n\n", map->ceiling->b);
-		int i = 0;
-		while (i < map->heigth)
-		{
-			printf("%s\n", map->matrix[i]);
-			i++;
-		}
+		get_color(map);
 	}
-	ft_free(map);
-//////////////////////////////////////////////////////////////////////////
-
 }

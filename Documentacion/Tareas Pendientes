@@ -1,0 +1,6 @@
+Pasar y guaradar en la estructuras los colores como uint_32 -> ok habria que eliminar T_color y sacaralo directamente he añadido dos var nuevos a maps de tipo uint_32
+
+sacar del mapa posx y posy (Posiciones del jugador)
+y meternas el t_player , map tendra una variable que es un puntero a player
+
+Sacar del mapa orientacion y ver como cojones la guardo de mnomento la guardo en jugador

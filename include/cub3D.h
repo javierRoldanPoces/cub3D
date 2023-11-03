@@ -11,13 +11,26 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <unistd.h>
+# define SPEED_R	0.05
+# define SPEED		0.1
+# define SCREEN_W	1024
+# define SCREEN_H	1024
 
+//Eliminar esta estructura necesito guardar los colores como uint_32
 typedef struct s_colour
 {
 	int				r;
 	int				g;
 	int				b;
 }					t_colour;
+
+typedef struct textures
+{
+	mlx_texture_t	*n;
+	mlx_texture_t	*s;
+	mlx_texture_t	*w;
+	mlx_texture_t	*e;
+}					t_textures;
 
 typedef struct s_map
 {
@@ -26,12 +39,51 @@ typedef struct s_map
 	char			*south_texture;
 	char			*west_texture;
 	char			*east_texture;
-	t_colour		*floor;
+	t_colour		*floor; // pasarlo y guardarlo a uint32
 	t_colour		*ceiling;
+	uint32_t		f;//Añadidas para eliminar t_color
+	uint32_t		c;
 	char			**matrix;
-	int				width;
+	int				p_x; //Posicion del jugador
+	int				p_y;
+	int				width; //Tamaño del mapa
 	int				heigth;
+	char			orientation; //Orientacion
 }					t_map;
+
+typedef struct s_player
+{
+	char		**map;
+	double		p_x;
+	double		p_y;
+	double		d_x;
+	double		d_y;
+	double		plan_x;
+	double		plan_y;
+	double		cam;
+	double		ray_d_x;
+	double		tex_x;
+	double		ray_d_y;
+	int			map_x;
+	int			map_y;
+	double		side_d_x;
+	double		side_d_y;
+	double		delta_d_x;
+	double		delta_d_y;
+	int			step_x;
+	int			step_y;
+	double		perp_wall_dist;
+	int			hit;
+	int			side;
+	int			line_height;
+	int			draw_start;
+	int			draw_end;
+	//uint32_t	color;
+	mlx_t		*mlx;
+	mlx_image_t	*walls;
+	mlx_image_t	*bg;
+	//t_map		map;
+}	t_player;
 
 //get_file_content
 void	get_file_content(t_map *map, char *file);
