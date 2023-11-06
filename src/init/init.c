@@ -12,20 +12,36 @@ void	ft_draw_bg(t_player *player)
 		while (j < SCREEN_H)
 		{
 			if (j < SCREEN_H / 2)
-				mlx_put_pixel(player->bg, i, j, player->mapa->c);
-			else
 				mlx_put_pixel(player->bg, i, j, player->mapa->f);
+			else
+				mlx_put_pixel(player->bg, i, j, player->mapa->c);
 			j++;
 		}
 		i++;
 	}
+	mlx_image_to_window(player->mlx, player->bg, 0, 0);
+
 }
 
-// void	ft_draw_walls(t_player *player)
-// {
-// 	int	x;
+void	ft_draw(t_player *player)
+{
+	int	x;
 
-// }
+	x = 0;
+	while (x < SCREEN_W)
+	{
+		//calculate ray position and direction
+		player->cam = 2 * x / (double)SCREEN_W -1;
+		player->ray_d_x = player->p_x + player->plan_x * player->cam;
+		player->ray_d_y = player->p_y + player->plan_y * player->cam;
+		//which box of the map we're in
+		player->map_x = (int)player->p_x;
+		player->map_y = (int)player->p_y;
+		////length of ray from one x or y-side to next x or y-side
+		ft_calc_delta(player);
+	}
+
+}
 
 void	ft_orientation(t_player *player)
 {
@@ -84,8 +100,9 @@ void	ft_init_game(t_player	*player)
 	player->bg = mlx_new_image(player->mlx, SCREEN_W, SCREEN_H);
 	// Pintamos los pixeles en la imagen creada bg usando para ello la mitad de SCREEN_H
 	ft_draw_bg(player);
-	mlx_image_to_window(player->mlx, player->bg, 0, 0);
+	// mlx_image_to_window(player->mlx, player->bg, 0, 0);
 	// Crear buffer para nueva imagen Muros
 	player->walls = mlx_new_image(player->mlx, SCREEN_W, SCREEN_H);
 	// A ver como cojones pinto los putos muros.....
+	//llamoa  ft_draw  que ira haciendo tdos los calculos del raycasting hasta pintar muros
 }

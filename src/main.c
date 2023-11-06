@@ -29,10 +29,7 @@ void	print_data_map_arg(t_map *map)
 
 int	main(int argc, char **argv)
 {
-	//t_map			*map;
 	t_player		player;
-	// mlx_t			*mlx;
-	// mlx_image_t		*g_img;
 
 	player.mapa = (t_map *)ft_calloc(sizeof(t_map), 1);
 	if (argc == 2)
@@ -43,7 +40,7 @@ int	main(int argc, char **argv)
 		get_textures(player.mapa);
 		ft_init_game(&player);
 		mlx_loop(player.mlx);
-		// mlx_terminate(mlx);
+		// mlx_terminate(player.mlx);
 	}
 	else
 		ft_error("invalid number of arguments", NULL);

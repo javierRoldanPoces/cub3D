@@ -3,8 +3,8 @@ SO /home/javier/Escritorio/cub3D/textures/mossy.png
 WE /home/javier/Escritorio/cub3D/textures/wall.png
 EA /home/javier/Escritorio/cub3D/textures/wood.png
 
-F 220,100,0
-C 255,30,89
+F 0,255,0
+C 135,206,235
 
                         1111
                         1001

@@ -63,8 +63,8 @@ typedef struct s_player
 	double		plan_y;
 	double		cam;
 	double		ray_d_x;
-	double		tex_x;
 	double		ray_d_y;
+	double		tex_x;
 	int			map_x;
 	int			map_y;
 	double		side_d_x;
@@ -130,4 +130,6 @@ void	ft_init_game(t_player	*player);
 void	ft_orientation(t_player *player);
 void	ft_draw_bg(t_player *player);
 
+//raycasting
+void	ft_calc_delta(t_player *player);
 #endif
