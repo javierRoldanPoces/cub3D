@@ -42,7 +42,7 @@ int	main(int argc, char **argv)
 
 		get_textures(player.mapa);
 		ft_init_game(&player);
-		// mlx_loop(mlx);
+		mlx_loop(player.mlx);
 		// mlx_terminate(mlx);
 	}
 	else

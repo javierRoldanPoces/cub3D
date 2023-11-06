@@ -128,5 +128,6 @@ char	*gnl_substr(char *s, unsigned int start, size_t len, int flag);
 void	get_textures(t_map *map);
 void	ft_init_game(t_player	*player);
 void	ft_orientation(t_player *player);
+void	ft_draw_bg(t_player *player);
 
 #endif
