@@ -9,7 +9,6 @@ static void	get_color(t_map *map)
 	| (map->ceiling->b << 8) | 255;
 }
 
-
 void	get_file_content(t_map *map, char *file)
 {
 	int	fd;

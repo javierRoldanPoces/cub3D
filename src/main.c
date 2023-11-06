@@ -29,38 +29,50 @@ void	print_data_map_arg(t_map *map)
 
 int	main(int argc, char **argv)
 {
-	t_map			*map;
-	mlx_t			*mlx;
-	mlx_image_t		*g_img;
+	//t_map			*map;
+	t_player		player;
+	// mlx_t			*mlx;
+	// mlx_image_t		*g_img;
 
-	map = (t_map *)ft_calloc(sizeof(t_map), 1);
+	player.mapa = (t_map *)ft_calloc(sizeof(t_map), 1);
 	if (argc == 2)
 	{
-		get_file_content(map, argv[1]);
-		print_data_map_arg(map);
-		mlx = mlx_init(SCREEN_W , SCREEN_H, "cub3D", true);
-		if (!mlx)
-			exit (EXIT_FAILURE);
-		g_img = mlx_new_image(mlx, SCREEN_W, SCREEN_H);
-		//memset(g_img->pixels, map->f, g_img->width * g_img->height * sizeof(int32_t));
-		mlx_image_to_window(mlx, g_img,  0, 0);
-		int	i = 256;
-		int j = 0;
-		while (i < 512)
-		{
-			j = 0;
-			while (j < 512)
-			{
-				mlx_put_pixel(g_img, i, j, map->c);
-				j++;
-			}
-			i++;
-		}
-		get_textures(map);
-		mlx_loop(mlx);
-		mlx_terminate(mlx);
+		get_file_content(player.mapa, argv[1]);
+		print_data_map_arg(player.mapa);
+
+		get_textures(player.mapa);
+		ft_init_game(&player);
+		// mlx_loop(mlx);
+		// mlx_terminate(mlx);
 	}
 	else
 		ft_error("invalid number of arguments", NULL);
 	return (0);
 }
+/*
+ Main de prueba
+
+ 		// mlx = mlx_init(SCREEN_W , SCREEN_H, "cub3D", true);
+		// if (!mlx)
+		// 	exit (EXIT_FAILURE);
+		// g_img = mlx_new_image(mlx, SCREEN_W, SCREEN_H);
+		// //memset(g_img->pixels, map->f, g_img->width * g_img->height * sizeof(int32_t));
+		// mlx_image_to_window(mlx, g_img,  0, 0);
+		// int	i = 256;
+		// int j = 0;
+		// while (i < 512)
+		// {
+		// 	j = 0;
+		// 	while (j < 512)
+		// 	{
+		// 		mlx_put_pixel(g_img, i, j, map->c);
+		// 		j++;
+		// 	}
+		// 	i++;
+		// }
+
+
+
+
+
+*/

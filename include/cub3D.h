@@ -57,7 +57,7 @@ typedef struct s_player
 	char		**map;
 	double		p_x;
 	double		p_y;
-	double		d_x;
+	double		d_x; //posicion inicial vector de direccion
 	double		d_y;
 	double		plan_x;
 	double		plan_y;
@@ -83,7 +83,7 @@ typedef struct s_player
 	mlx_t		*mlx;
 	mlx_image_t	*walls;
 	mlx_image_t	*bg;
-	//t_map		map;
+	t_map		*mapa;
 }	t_player;
 
 //get_file_content
@@ -125,7 +125,8 @@ char	*gnl_strjoin(char *s1, char *s2, int flag);
 char	*gnl_substr(char *s, unsigned int start, size_t len, int flag);
 
 //init
-void    get_textures(t_map  *map);
-
+void	get_textures(t_map *map);
+void	ft_init_game(t_player	*player);
+void	ft_orientation(t_player *player);
 
 #endif
