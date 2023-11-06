@@ -1,48 +1,5 @@
 #include "../../include/cub3D.h"
 
-void	ft_draw_bg(t_player *player)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < SCREEN_W)
-	{
-		j = 0;
-		while (j < SCREEN_H)
-		{
-			if (j < SCREEN_H / 2)
-				mlx_put_pixel(player->bg, i, j, player->mapa->f);
-			else
-				mlx_put_pixel(player->bg, i, j, player->mapa->c);
-			j++;
-		}
-		i++;
-	}
-	mlx_image_to_window(player->mlx, player->bg, 0, 0);
-
-}
-
-void	ft_draw(t_player *player)
-{
-	int	x;
-
-	x = 0;
-	while (x < SCREEN_W)
-	{
-		//calculate ray position and direction
-		player->cam = 2 * x / (double)SCREEN_W -1;
-		player->ray_d_x = player->p_x + player->plan_x * player->cam;
-		player->ray_d_y = player->p_y + player->plan_y * player->cam;
-		//which box of the map we're in
-		player->map_x = (int)player->p_x;
-		player->map_y = (int)player->p_y;
-		////length of ray from one x or y-side to next x or y-side
-		ft_calc_delta(player);
-	}
-
-}
-
 void	ft_orientation(t_player *player)
 {
 	player->d_x = 0;
@@ -103,6 +60,7 @@ void	ft_init_game(t_player	*player)
 	// mlx_image_to_window(player->mlx, player->bg, 0, 0);
 	// Crear buffer para nueva imagen Muros
 	player->walls = mlx_new_image(player->mlx, SCREEN_W, SCREEN_H);
-	// A ver como cojones pinto los putos muros.....
 	//llamoa  ft_draw  que ira haciendo tdos los calculos del raycasting hasta pintar muros
+	ft_draw(player);
+
 }

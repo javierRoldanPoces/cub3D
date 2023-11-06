@@ -128,8 +128,14 @@ char	*gnl_substr(char *s, unsigned int start, size_t len, int flag);
 void	get_textures(t_map *map);
 void	ft_init_game(t_player	*player);
 void	ft_orientation(t_player *player);
+
+//draw
 void	ft_draw_bg(t_player *player);
+void	ft_draw(t_player *player);
+
 
 //raycasting
 void	ft_calc_delta(t_player *player);
+void	calc_step_and_initial_sidedist(t_player *player);
+
 #endif
