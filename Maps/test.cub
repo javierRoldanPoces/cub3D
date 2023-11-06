@@ -1,7 +1,7 @@
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
+NO /home/javier/Escritorio/cub3D/textures/greystone.png
+SO /home/javier/Escritorio/cub3D/textures/mossy.png
+WE /home/javier/Escritorio/cub3D/textures/wall.png
+EA /home/javier/Escritorio/cub3D/textures/wood.png
 
 F 220,100,0
 C 255,30,89

@@ -14,6 +14,7 @@ SRC =		src/main.c							\
 			src/parse/get_map.c					\
 			src/parse/get_text_and_colours.c	\
 			src/parse/utils.c					\
+			src/init/init.c						\
 
 OBJT_DIR = objt
 

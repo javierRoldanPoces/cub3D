@@ -56,6 +56,7 @@ int	main(int argc, char **argv)
 			}
 			i++;
 		}
+		get_textures(map);
 		mlx_loop(mlx);
 		mlx_terminate(mlx);
 	}

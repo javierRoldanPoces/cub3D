@@ -49,6 +49,7 @@ typedef struct s_map
 	int				width; //Tamaño del mapa
 	int				heigth;
 	char			orientation; //Orientacion
+	t_textures		text; //tambien lo podria haber guaraddo en un array como en la documentación
 }					t_map;
 
 typedef struct s_player
@@ -122,5 +123,9 @@ char	*gnl_strchr(char *s, int c);
 char	*gnl_strdup(char *s);
 char	*gnl_strjoin(char *s1, char *s2, int flag);
 char	*gnl_substr(char *s, unsigned int start, size_t len, int flag);
+
+//init
+void    get_textures(t_map  *map);
+
 
 #endif
