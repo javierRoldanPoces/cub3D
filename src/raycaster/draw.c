@@ -38,7 +38,23 @@ void	ft_draw(t_player *player)
 		player->map_y = (int)player->p_y;
 		////length of ray from one x or y-side to next x or y-side
 		ft_calc_delta(player);
-		calc_step_and_initial_sidedist(player);
+		ft_calc_step_and_initial_sidedist(player);
+		player->side = 0; //Hubo golpe en pared
+		//funcion para calcular pasos y valor inicial de sidedist (side_d_x y side_d_y)
+		ft_calculate_step_sidedist(player);
+
+/*
+Ahora comienza el PDD propiamente dicho. Es un bucle que incrementa
+el rayo en 1 cuadrado cada vez, hasta que choca contra una pared.
+Cada vez que salta un cuadrado en la dirección x (con paso X) o un
+cuadrado en la dirección y (con paso Y), siempre salta 1 cuadrado a la vez.
+Si la dirección del rayo fuera la dirección x, el bucle solo tendrá que saltar
+un cuadrado en la dirección x cada vez, porque el rayo nunca cambiará su dirección y.
+Si el rayo está un poco inclinado hacia la dirección y, entonces cada tantos saltos
+en la dirección x, el rayo tendrá que saltar un cuadrado en la dirección y.
+Si el rayo está exactamente en la dirección y, nunca tiene que saltar en la dirección x.
+*/
+
 		x++;
 	}
 	printf("************** Calculos obtenidos con funcion calc_delta***\n");

@@ -71,10 +71,10 @@ typedef struct s_player
 	double		side_d_y;
 	double		delta_d_x;
 	double		delta_d_y;
-	int			step_x;
+	int			step_x;//what direction to step in x or y-direction (either +1 or -1)
 	int			step_y;
 	double		perp_wall_dist;
-	int			hit;
+	int			hit; // Controla si se ha golpeado una pared
 	int			side;
 	int			line_height;
 	int			draw_start;
@@ -136,6 +136,8 @@ void	ft_draw(t_player *player);
 
 //raycasting
 void	ft_calc_delta(t_player *player);
-void	calc_step_and_initial_sidedist(t_player *player);
+void	ft_calc_step_and_initial_sidedist(t_player *player);
+void	ft_calculate_step_sidedist(t_player *player);
+
 
 #endif

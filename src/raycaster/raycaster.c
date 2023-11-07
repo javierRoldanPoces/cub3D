@@ -28,7 +28,7 @@ lado de la izquierda o de la derecha, de arriba o de abajo. Luego obtienes
 la distancia perpendicular a este lado, así que multiplícala con deltaDistX 
 o deltaDistY para obtener la distancia euclidiana real.
 */
-void	calc_step_and_initial_sidedist(t_player *player)
+void	ft_calc_step_and_initial_sidedist(t_player *player)
 {
 	if (player->ray_d_x < 0)
 	{
@@ -49,4 +49,34 @@ void	calc_step_and_initial_sidedist(t_player *player)
 	else
 		player->side_d_y = (player->map_y + 1.0 - player->p_y) * \
 		player->delta_d_y;
+}
+
+/*
+Funcion para calcular pasos y valor inicial sidedist (side_d_x y side_d_y)
+*/
+void	ft_calculate_step_sidedist(t_player *player)
+{
+	if (player->ray_d_x < 0)
+	{
+		player->step_x = -1;
+		player->side_d_x = (player->p_x - player->map_x) * player->delta_d_x;
+	}
+	else
+	{
+		player->step_x = 1;
+		player->side_d_x = (player->map_x + 1.0 - player->p_x) \
+		* player->delta_d_x;
+	}
+	if (player->ray_d_y < 0)
+	{
+		player->step_y = -1;
+		player->side_d_y = (player->p_y - player->map_y) * player->delta_d_y;
+	}
+	else
+	{
+		player->step_y = 1;
+		player->side_d_y = (player->map_y + 1.0 - player->p_y) \
+		* player->delta_d_y;
+	}
+
 }
