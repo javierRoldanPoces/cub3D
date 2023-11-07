@@ -80,3 +80,29 @@ void	ft_calculate_step_sidedist(t_player *player)
 	}
 
 }
+
+/*
+Desarrollo del algorimo DDA
+*/
+void	ft_dda_algorithm(t_player *player)
+{
+	while (player->hit == 0)
+	{
+		//jump to next map square, either in x-direction, or in y-direction
+		if (player->side_d_x < player->side_d_y)
+		{
+			player->side_d_x += player->delta_d_x;
+			player->map_x += player->step_x;
+			player->side = 0;
+		}
+		else
+		{
+			player->side_d_y += player->delta_d_y;
+			player->map_y += player->step_y;
+			player->side = 1;
+		}
+        //Check if ray has hit a wall
+		if (player->map[player->map_x][player->map_y] == 1)
+			player->hit = 1;
+	}
+}

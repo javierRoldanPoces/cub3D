@@ -138,6 +138,6 @@ void	ft_draw(t_player *player);
 void	ft_calc_delta(t_player *player);
 void	ft_calc_step_and_initial_sidedist(t_player *player);
 void	ft_calculate_step_sidedist(t_player *player);
-
+void	ft_dda_algorithm(t_player *player);
 
 #endif

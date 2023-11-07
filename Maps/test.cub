@@ -1,7 +1,7 @@
-NO /home/javier/Escritorio/cub3D/textures/greystone.png
-SO /home/javier/Escritorio/cub3D/textures/mossy.png
-WE /home/javier/Escritorio/cub3D/textures/wall.png
-EA /home/javier/Escritorio/cub3D/textures/wood.png
+NO textures/greystone.png
+SO textures/mossy.png
+WE textures/wall.png
+EA textures/wood.png
 
 F 0,255,0
 C 135,206,235
