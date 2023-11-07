@@ -14,14 +14,14 @@ void	get_textures_and_colours(t_map *map, int fd, int *map_pos)
 	}
 }
 
-int	allocate_text_and_colour(t_map *map, char *buffer, int *counter)
+int	allocate_text_and_colour(t_map *map, char *buff, int *counter)
 {
 	char	**split;
 
-	split = ft_split(buffer, ' ');
+	split = ft_split(buff, ' ');
 	if (split[0] == NULL || split[1] == NULL || split[2] != NULL)
-		ft_error("invalid text line", buffer);
-	free(buffer);
+		ft_error("invalid text line", buff);
+	free(buff);
 	if (map->north_texture == NULL && ft_strncmp(split[0], "NO", 3) == 0)
 		return (get_texture(&map->north_texture, split, counter));
 	else if (map->south_texture == NULL && ft_strncmp(split[0], "SO", 3) == 0)

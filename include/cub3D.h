@@ -16,7 +16,7 @@
 # define SCREEN_W	1024
 # define SCREEN_H	1024
 
-//Eliminar esta estructura necesito guardar los colores como uint_32
+//Eliminar esta estructura y guardar directamente como uint32
 typedef struct s_colour
 {
 	int				r;
@@ -64,7 +64,7 @@ typedef struct s_player
 	double		cam;
 	double		ray_d_x;
 	double		ray_d_y;
-	double		tex_x;
+	int		tex_x; // o double?¿?  manual es int
 	int			map_x;
 	int			map_y;
 	double		side_d_x;
@@ -87,57 +87,59 @@ typedef struct s_player
 }	t_player;
 
 //get_file_content
-void	get_file_content(t_map *map, char *file);
+void			get_file_content(t_map *map, char *file);
 
 //parse/get_text_and_colours
-void	get_textures_and_colours(t_map *map, int fd, int *map_pos);
-int		allocate_text_and_colour(t_map *map, char *buffer, int *counter);
-int		get_texture(char **map_texture, char **split, int *counter);
-int		get_colour(t_colour **map_colour, char **split, int *counter);
+void			get_textures_and_colours(t_map *map, int fd, int *map_pos);
+int				allocate_text_and_colour(t_map *map, char *buff, int *counter);
+int				get_texture(char **map_texture, char **split, int *counter);
+int				get_colour(t_colour **map_colour, char **split, int *counter);
 
 //parse/get_map
-void	get_map(t_map *map, int fd, int *map_pos);
-void	count_map_lines(t_map *map, int fd, int *map_pos);
-void	get_map_line(t_map *map, int *new_fd, int map_pos);
-void	allocate_map(t_map *map, int new_fd);
-void	square_up_map(t_map *map);
+void			get_map(t_map *map, int fd, int *map_pos);
+void			count_map_lines(t_map *map, int fd, int *map_pos);
+void			get_map_line(t_map *map, int *new_fd, int map_pos);
+void			allocate_map(t_map *map, int new_fd);
+void			square_up_map(t_map *map);
 
 //parse/check_map
-void	check_map(t_map *map);
-void	check_valid_char(char c, int *wall);
-void	check_player_position(t_map *map, int n, int i, int *player);
-void	check_walls(t_map *map, int n, int i);
-void	check_sides(t_map *map, int n, int i);
+void			check_map(t_map *map);
+void			check_valid_char(char c, int *wall);
+void			check_player_position(t_map *map, int n, int i, int *player);
+void			check_walls(t_map *map, int n, int i);
+void			check_sides(t_map *map, int n, int i);
 
 //parse/utils
-char	*get_line(int fd, int *map_pos);
-int		get_tabs(char *buffer);
-char	*ft_convert(char *buffer);
-void	ft_error(char *message, char *file);
-void	ft_free(t_map *map);
+char			*get_line(int fd, int *map_pos);
+int				get_tabs(char *buffer);
+char			*ft_convert(char *buffer);
+void			ft_error(char *message, char *file);
+void			ft_free(t_map *map);
 
 //get_next_line
-char	*get_next_line(int fd);
-void	*gnl_calloc(size_t nmemb, size_t size);
-char	*gnl_strchr(char *s, int c);
-char	*gnl_strdup(char *s);
-char	*gnl_strjoin(char *s1, char *s2, int flag);
-char	*gnl_substr(char *s, unsigned int start, size_t len, int flag);
+char			*get_next_line(int fd);
+void			*gnl_calloc(size_t nmemb, size_t size);
+char			*gnl_strchr(char *s, int c);
+char			*gnl_strdup(char *s);
+char			*gnl_strjoin(char *s1, char *s2, int flag);
+char			*gnl_substr(char *s, unsigned int start, size_t len, int flag);
 
 //init
-void	get_textures(t_map *map);
-void	ft_init_game(t_player	*player);
-void	ft_orientation(t_player *player);
+void			get_textures(t_map *map);
+void			ft_init_game(t_player	*player);
+void			ft_orientation(t_player *player);
 
 //draw
-void	ft_draw_bg(t_player *player);
-void	ft_draw(t_player *player);
-
+void			ft_draw_bg(t_player *player);
+void			ft_draw(t_player *player);
 
 //raycasting
-void	ft_calc_delta(t_player *player);
-void	ft_calc_step_and_initial_sidedist(t_player *player);
-void	ft_calculate_step_sidedist(t_player *player);
-void	ft_dda_algorithm(t_player *player);
+void			ft_calc_delta(t_player *player);
+void			ft_calc_step_and_initial_sidedist(t_player *player);
+void			ft_calculate_step_sidedist(t_player *player);
+void			ft_dda_algorithm(t_player *player);
+void			ft_distance_perp_wall(t_player	*player);
+mlx_texture_t	*ft_load_texture(t_player *player);
+void			ft_calc_wallx(t_player *player);
 
 #endif

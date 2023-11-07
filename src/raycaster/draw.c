@@ -20,11 +20,12 @@ void	ft_draw_bg(t_player *player)
 		i++;
 	}
 	mlx_image_to_window(player->mlx, player->bg, 0, 0);
-
 }
+
 void	ft_draw(t_player *player)
 {
-	int	x;
+	int				x;
+	mlx_texture_t	*texture;
 
 	x = 0;
 	while (x < SCREEN_W)
@@ -43,6 +44,11 @@ void	ft_draw(t_player *player)
 		//funcion para calcular pasos y valor inicial de sidedist (side_d_x y side_d_y)
 		ft_calculate_step_sidedist(player);
 		ft_dda_algorithm(player);
+		//cargar textura correcta dependiendo del valor de side(lado que golpea el rayo)
+		texture = ft_load_texture(player);
+		ft_calc_wallx(player);
+		(void)texture;
+		//queda pintar el puto muro y a ver q pasa y los hook
 		x++;
 	}
 	// printf("************** Calculos obtenidos con funcion calc_delta***\n");
@@ -53,5 +59,4 @@ void	ft_draw(t_player *player)
 	// printf("player->side_d_x = %lf\n", player->side_d_x);
 	// printf("player->step_y = %d\n", player->step_y);
 	// printf("player->side_d_y = %lf\n", player->side_d_y);
-
 }

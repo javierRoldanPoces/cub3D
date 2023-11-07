@@ -16,7 +16,8 @@ SRC =		src/main.c							\
 			src/parse/utils.c					\
 			src/init/init.c						\
 			src/raycaster/draw.c				\
-			src/raycaster/raycaster.c			\
+			src/raycaster/raycaster_0.c			\
+			src/raycaster/raycaster_1.c			\
 
 OBJT_DIR = objt
 

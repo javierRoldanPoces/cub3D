@@ -20,12 +20,9 @@ void	print_data_map_arg(t_map *map)
 		printf("%s\n", map->matrix[i]);
 		i++;
 	}
-
 	printf("Posicion del jugador en el mapa [%d][%d]\n", map->p_x, map->p_y);
 	printf("Orientacion del jugador %c\n", map->orientation);
 }
-
-
 
 int	main(int argc, char **argv)
 {
@@ -36,7 +33,6 @@ int	main(int argc, char **argv)
 	{
 		get_file_content(player.mapa, argv[1]);
 		print_data_map_arg(player.mapa);
-
 		get_textures(player.mapa);
 		ft_init_game(&player);
 		mlx_loop(player.mlx);
@@ -46,30 +42,3 @@ int	main(int argc, char **argv)
 		ft_error("invalid number of arguments", NULL);
 	return (0);
 }
-/*
- Main de prueba
-
- 		// mlx = mlx_init(SCREEN_W , SCREEN_H, "cub3D", true);
-		// if (!mlx)
-		// 	exit (EXIT_FAILURE);
-		// g_img = mlx_new_image(mlx, SCREEN_W, SCREEN_H);
-		// //memset(g_img->pixels, map->f, g_img->width * g_img->height * sizeof(int32_t));
-		// mlx_image_to_window(mlx, g_img,  0, 0);
-		// int	i = 256;
-		// int j = 0;
-		// while (i < 512)
-		// {
-		// 	j = 0;
-		// 	while (j < 512)
-		// 	{
-		// 		mlx_put_pixel(g_img, i, j, map->c);
-		// 		j++;
-		// 	}
-		// 	i++;
-		// }
-
-
-
-
-
-*/

@@ -27,10 +27,6 @@ void	ft_orientation(t_player *player)
 		player->d_y = -1;
 		player->plan_x = -0.66;
 	}
-	printf("Valores almacenados en d_x = %lf\n", player->d_x);
-	printf("Valores almacenados en d_y = %lf\n", player->d_y);
-	printf("Valores almacenados en plan_x = %lf\n", player->plan_x);
-	printf("Valores almacenados en plan_y = %lf\n", player->plan_y);
 }
 
 void	get_textures(t_map *map)
@@ -60,7 +56,6 @@ void	ft_init_game(t_player	*player)
 	// mlx_image_to_window(player->mlx, player->bg, 0, 0);
 	// Crear buffer para nueva imagen Muros
 	player->walls = mlx_new_image(player->mlx, SCREEN_W, SCREEN_H);
-	//llamoa  ft_draw  que ira haciendo tdos los calculos del raycasting hasta pintar muros
+	//ft_draw ira haciendo todos los calculos del raycasting hasta pintar muros
 	ft_draw(player);
-
 }

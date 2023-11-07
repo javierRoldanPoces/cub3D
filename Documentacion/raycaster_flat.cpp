@@ -112,7 +112,7 @@ int main(int /*argc*/, char */*argv*/[])
       double perpWallDist;
 
       //what direction to step in x or y-direction (either +1 or -1)
-      int stepX;
+      int stepX; 
       int stepY;
 
       int hit = 0; //was there a wall hit?
@@ -175,7 +175,7 @@ int main(int /*argc*/, char */*argv*/[])
       int drawEnd = lineHeight / 2 + h / 2;
       if(drawEnd >= h) drawEnd = h - 1;
 
-      //choose wall color
+      //choose wall color aqui me quedao
       ColorRGB color;
       switch(worldMap[mapX][mapY])
       {

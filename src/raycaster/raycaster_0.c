@@ -1,8 +1,9 @@
 #include "../../include/cub3D.h"
 
 /*
-Funcion para calcular deltaDistX y deltaDistY que son la distancia que debe recorrer
-el rayo para pasar de 1 lado x al siguiente lado x, o de 1 lado y al siguiente lado y.
+Funcion para calcular deltaDistX y deltaDistY que son la distancia que debe 
+recorrer el rayo para pasar de 1 lado x al siguiente lado x, o de 1 lado y al 
+siguiente lado y.
 */
 void	ft_calc_delta(t_player *player)
 {
@@ -78,7 +79,6 @@ void	ft_calculate_step_sidedist(t_player *player)
 		player->side_d_y = (player->map_y + 1.0 - player->p_y) \
 		* player->delta_d_y;
 	}
-
 }
 
 /*
@@ -93,16 +93,42 @@ void	ft_dda_algorithm(t_player *player)
 		{
 			player->side_d_x += player->delta_d_x;
 			player->map_x += player->step_x;
-			player->side = 0;
+			if ((player->map_x - player->p_x) >= 0)
+				player->side = 2;
+			else
+				player->side = 0;
 		}
 		else
 		{
 			player->side_d_y += player->delta_d_y;
 			player->map_y += player->step_y;
-			player->side = 1;
+			if ((player->map_y - player->p_y >= 0))
+				player->side = 1;
+			else
+				player->side = 3;
 		}
-        //Check if ray has hit a wall
-		if (player->map[player->map_x][player->map_y] == 1)
+		if (player->map[player->map_x][player->map_y] == '1') //Check if ray has hit a wall
 			player->hit = 1;
 	}
+	ft_distance_perp_wall(player);
+}
+
+/*
+Calcula distancia perpendicular al rayo.
+Calcula h de la linea para dibujar en la pantalla
+calcula el píxel más bajo y más alto para rellenar en la raya
+*/
+void	ft_distance_perp_wall(t_player	*player)
+{
+	if (player->side == 0 || player->side == 2)
+		player->perp_wall_dist = player->side_d_x - player->delta_d_x;
+	else
+		player->perp_wall_dist = player->side_d_y - player->delta_d_y;
+	player->line_height = (int)(SCREEN_H / player->perp_wall_dist);
+	player->draw_start = -player->line_height / 2 + SCREEN_H / 2;
+	if (player->draw_start < 0)
+		player->draw_start = 0;
+	player->draw_end = player->line_height / 2 + SCREEN_H / 2;
+	if (player->draw_end >= SCREEN_H)
+		player->draw_end = SCREEN_H - 1;
 }
