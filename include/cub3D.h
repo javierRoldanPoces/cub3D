@@ -132,6 +132,8 @@ void			ft_orientation(t_player *player);
 //draw
 void			ft_draw_bg(t_player *player);
 void			ft_draw(t_player *player);
+void			ft_drwaw_wall(mlx_texture_t *texture, int x, t_player *player);
+
 
 //raycasting
 void			ft_calc_delta(t_player *player);

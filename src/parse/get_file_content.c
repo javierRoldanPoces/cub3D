@@ -23,9 +23,14 @@ void	get_file_content(t_map *map, char *file)
 		fd = open(map->file, O_RDONLY);
 		if (fd == -1)
 			ft_error(strerror(errno), map->file);
+		map->text.e = NULL;
+		map->text.w = NULL;
+		map->text.n = NULL;
+		map->text.s = NULL;
 		get_textures_and_colours(map, fd, &map_pos);
 		get_map(map, fd, &map_pos);
 		check_map(map);
 		get_color(map);
+		//get_textures(map);
 	}
 }

@@ -11,7 +11,7 @@ void	ft_calc_delta(t_player *player)
 		player->delta_d_x = 1e30;
 	else
 		player->delta_d_x = fabs(1 / player->ray_d_x);
-	if (!player->ray_d_y == 0)
+	if (!player->ray_d_y)
 		player->delta_d_y = 1e30;
 	else
 		player->delta_d_y = fabs(1 / player->ray_d_y);
@@ -48,8 +48,11 @@ void	ft_calc_step_and_initial_sidedist(t_player *player)
 		player->side_d_y = (player->p_y - player->map_y) * player->delta_d_y;
 	}
 	else
+	{
+		player->step_y = 1;
 		player->side_d_y = (player->map_y + 1.0 - player->p_y) * \
 		player->delta_d_y;
+	}
 }
 
 /*
@@ -124,7 +127,7 @@ void	ft_distance_perp_wall(t_player	*player)
 		player->perp_wall_dist = player->side_d_x - player->delta_d_x;
 	else
 		player->perp_wall_dist = player->side_d_y - player->delta_d_y;
-	player->line_height = (int)(SCREEN_H / player->perp_wall_dist);
+	player->line_height = (int)(SCREEN_W / player->perp_wall_dist);
 	player->draw_start = -player->line_height / 2 + SCREEN_H / 2;
 	if (player->draw_start < 0)
 		player->draw_start = 0;

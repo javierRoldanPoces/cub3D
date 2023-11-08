@@ -3,8 +3,10 @@
 void	print_data_map_arg(t_map *map)
 {
 	int	i;
+	int	j;
 
 	i = 0;
+	j = 0;
 	printf("NO = %s\n", map->north_texture);
 	printf("SO = %s\n", map->south_texture);
 	printf("WE = %s\n", map->west_texture);
@@ -17,11 +19,19 @@ void	print_data_map_arg(t_map *map)
 	printf("ceiling->b = %d\n\n", map->ceiling->b);
 	while (i < map->heigth)
 	{
-		printf("%s\n", map->matrix[i]);
+		j = 0;
+		while (j < map->width)
+		{
+			printf("%c", map->matrix[i][j]);
+			j++;
+		}
+		printf("\n");
 		i++;
 	}
 	printf("Posicion del jugador en el mapa [%d][%d]\n", map->p_x, map->p_y);
 	printf("Orientacion del jugador %c\n", map->orientation);
+	printf("map->height = %d\n", map->heigth);
+	printf("map->w = %d\n", map->width);
 }
 
 int	main(int argc, char **argv)
@@ -32,11 +42,18 @@ int	main(int argc, char **argv)
 	if (argc == 2)
 	{
 		get_file_content(player.mapa, argv[1]);
+		player.mapa->width++;
 		print_data_map_arg(player.mapa);
 		get_textures(player.mapa);
+		// if (!player.mapa->text.n)
+		// 	printf("texturas No guardadas\n");
+		// else
+		// 	printf("textura guardada en mapa\n");
 		ft_init_game(&player);
+		mlx_image_to_window(player.mlx, player.walls, 0, 0);
+
 		mlx_loop(player.mlx);
-		// mlx_terminate(player.mlx);
+		mlx_terminate(player.mlx);
 	}
 	else
 		ft_error("invalid number of arguments", NULL);

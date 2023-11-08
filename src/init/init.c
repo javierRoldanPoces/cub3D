@@ -52,8 +52,8 @@ void	ft_init_game(t_player	*player)
 	//Crea buffer para nueva imagen dl fondo bg, mismo tamaño que pantalla
 	player->bg = mlx_new_image(player->mlx, SCREEN_W, SCREEN_H);
 	// Pintamos los pixeles en la imagen creada bg usando para ello la mitad de SCREEN_H
-	ft_draw_bg(player);
-	// mlx_image_to_window(player->mlx, player->bg, 0, 0);
+	//ft_draw_bg(player);
+	mlx_image_to_window(player->mlx, player->bg, 0, 0);
 	// Crear buffer para nueva imagen Muros
 	player->walls = mlx_new_image(player->mlx, SCREEN_W, SCREEN_H);
 	//ft_draw ira haciendo todos los calculos del raycasting hasta pintar muros
