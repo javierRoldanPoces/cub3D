@@ -56,7 +56,7 @@ void	ft_draw(t_player *player)
 		//cargar textura correcta dependiendo del valor de side(lado que golpea el rayo)
 		texture = ft_load_texture(player);
 		ft_calc_wallx(player);
-		ft_drwaw_wall(texture, x, player);
+		ft_draw_wall(texture, x, player);
 		x++;
 	}
 	mlx_image_to_window(player->mlx, player->walls, 0, 0);
@@ -73,7 +73,7 @@ uint32_t	ft_get_uin32(uint8_t *conv, int n)
 	return (u);
 }
 
-void	ft_drwaw_wall(mlx_texture_t *texture, int x, t_player *player)
+void	ft_draw_wall(mlx_texture_t *texture, int x, t_player *player)
 {
 	double		step;
 	double		tex_pos;
