@@ -6,7 +6,6 @@ void	ft_orientation(t_player *player)
 	player->d_y = 0;
 	player->plan_x = 0;
 	player->plan_y = 0;
-	printf("La orientacion guardada es %c\n", player->mapa->orientation);
 	if (player->mapa->orientation == 'N')
 	{
 		player->d_x = -1;
@@ -47,15 +46,9 @@ void	ft_init_game(t_player	*player)
 	player->p_x = player->mapa->p_x + 0.5;
 	player->p_y = player->mapa->p_y + 0.5;
 	ft_orientation(player);
-	//Creamos enlace a libreria MLX
 	player->mlx = mlx_init(SCREEN_W, SCREEN_H, "cub3D", false);
-	//Crea buffer para nueva imagen dl fondo bg, mismo tamaño que pantalla
 	player->bg = mlx_new_image(player->mlx, SCREEN_W, SCREEN_H);
-	// Pintamos los pixeles en la imagen creada bg usando para ello la mitad de SCREEN_H
-	//ft_draw_bg(player);
-	mlx_image_to_window(player->mlx, player->bg, 0, 0);
-	// Crear buffer para nueva imagen Muros
+	ft_draw_bg(player);
 	player->walls = mlx_new_image(player->mlx, SCREEN_W, SCREEN_H);
-	//ft_draw ira haciendo todos los calculos del raycasting hasta pintar muros
 	ft_draw(player);
 }

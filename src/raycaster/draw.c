@@ -1,5 +1,10 @@
 #include "../../include/cub3D.h"
 
+/*
+Funcion que pintara la pantalla con los colores 
+ceiling y floor recibidos en el archivo, pintara midat superior
+en color ceiling y mitad inferior color floor
+*/
 void	ft_draw_bg(t_player *player)
 {
 	int	i;
@@ -19,7 +24,7 @@ void	ft_draw_bg(t_player *player)
 		}
 		i++;
 	}
-	//mlx_image_to_window(player->mlx, player->bg, 0, 0);
+	mlx_image_to_window(player->mlx, player->bg, 0, 0);
 }
 
 void	ft_draw(t_player *player)
@@ -36,9 +41,9 @@ void	ft_draw(t_player *player)
 	while (x < SCREEN_W)
 	{
 		//calculate ray position and direction
-		player->cam = 2 * x / (double)SCREEN_W -1;
-		player->ray_d_x = player->p_x + player->plan_x * player->cam;
-		player->ray_d_y = player->p_y + player->plan_y * player->cam;
+		player->cam = 2 * x / (double)SCREEN_W - 1;
+		player->ray_d_x = player->d_x + player->plan_x * player->cam;
+		player->ray_d_y = player->d_y + player->plan_y * player->cam;
 		//which box of the map we're in
 		player->map_x = (int)player->p_x;
 		player->map_y = (int)player->p_y;
@@ -46,29 +51,15 @@ void	ft_draw(t_player *player)
 		ft_calc_delta(player);
 		player->hit = 0;
 		ft_calc_step_and_initial_sidedist(player);
-		//player->side = 0; //Hubo golpe en pared
 		//funcion para calcular pasos y valor inicial de sidedist (side_d_x y side_d_y)
-		//ft_calculate_step_sidedist(player);
 		ft_dda_algorithm(player);
 		//cargar textura correcta dependiendo del valor de side(lado que golpea el rayo)
 		texture = ft_load_texture(player);
 		ft_calc_wallx(player);
-		//(void)texture;
 		ft_drwaw_wall(texture, x, player);
-
-		//queda pintar el puto muro y a ver q pasa y los hook
 		x++;
 	}
 	mlx_image_to_window(player->mlx, player->walls, 0, 0);
-
-	// printf("************** Calculos obtenidos con funcion calc_delta***\n");
-	// printf("player->delta_d_x = %lf\n", player->delta_d_x);
-	// printf("player->delta_d_y = %lf\n", player->delta_d_y);
-	// printf("************** Calculos obtenidos con funcion calc_step_and_initial_sidedist***\n");
-	// printf("player->step_x = %d\n", player->step_x);
-	// printf("player->side_d_x = %lf\n", player->side_d_x);
-	// printf("player->step_y = %d\n", player->step_y);
-	// printf("player->side_d_y = %lf\n", player->side_d_y);
 }
 
 uint32_t	ft_get_uin32(uint8_t *conv, int n)
@@ -90,12 +81,14 @@ void	ft_drwaw_wall(mlx_texture_t *texture, int x, t_player *player)
 	int			y;
 
 	step = (double)texture->height / player->line_height;
-	tex_pos = (player->draw_start - SCREEN_H / 2 + player->line_height / 2) * step;
+	tex_pos = (player->draw_start - SCREEN_H / 2 + player->line_height / 2) \
+				* step;
 	y = player->draw_start;
 	while (y < player->draw_end)
 	{
-		color = ft_get_uin32(texture->pixels, texture->width * (int)tex_pos * 4 + (int)player->tex_x * 4);
-		mlx_put_pixel(player->walls,x, y, color);
+		color = ft_get_uin32(texture->pixels, texture->width * (int)tex_pos \
+				* 4 + (int)player->tex_x * 4);
+		mlx_put_pixel(player->walls, x, y, color);
 		tex_pos += step;
 		y++;
 	}
@@ -119,7 +112,4 @@ Finally, the current buffer pixel is set to this color, and we move on to the ne
         buffer[y][x] = color;
       }
     }
-
-
-
 */

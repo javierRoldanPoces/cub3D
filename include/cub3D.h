@@ -138,7 +138,6 @@ void			ft_drwaw_wall(mlx_texture_t *texture, int x, t_player *player);
 //raycasting
 void			ft_calc_delta(t_player *player);
 void			ft_calc_step_and_initial_sidedist(t_player *player);
-void			ft_calculate_step_sidedist(t_player *player);
 void			ft_dda_algorithm(t_player *player);
 void			ft_distance_perp_wall(t_player	*player);
 mlx_texture_t	*ft_load_texture(t_player *player);

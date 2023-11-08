@@ -24,8 +24,6 @@ void	ft_calc_wallx(t_player *player)
 	else
 		wallx = player->p_x + player->perp_wall_dist * player->ray_d_x;
 	wallx -= floor(wallx);
-	//wallx = wallx - (int)wallx; is the same that floor(wallx)
-	//x coordinate on the texture
 	player->tex_x = (int)(wallx * (double)player->mapa->text.n->width);
 	if ((player->side == 2 || player->side == 1))
 		player->tex_x = player->mapa->text.n->width - player->tex_x - 1;

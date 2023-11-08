@@ -31,6 +31,6 @@ void	get_file_content(t_map *map, char *file)
 		get_map(map, fd, &map_pos);
 		check_map(map);
 		get_color(map);
-		//get_textures(map);
+		get_textures(map);
 	}
 }
