@@ -49,7 +49,7 @@ typedef struct s_map
 	int				width; //Tamaño del mapa
 	int				heigth;
 	char			orientation; //Orientacion
-	t_textures		text; //tambien lo podria haber guaraddo en un array como en la documentación
+	t_textures		*text; //tambien lo podria haber guaraddo en un array como en la documentación
 }					t_map;
 
 typedef struct s_player
