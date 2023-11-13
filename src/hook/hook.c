@@ -20,8 +20,8 @@ static void	ft_orientation_hook(t_player	*player)
 		player->plan_y = oldplanex * sin(R_SPEED) + player->plan_y \
 		* cos(R_SPEED);
 	}
-	// 	olddirx = player->d_x;
-	// oldplanex = player->plan_x;
+	olddirx = player->d_x;
+	oldplanex = player->plan_x;
 	if (mlx_is_key_down(player->mlx, MLX_KEY_RIGHT))
 	{
 		player->d_x = player->d_x * cos(-R_SPEED) - player->d_y \
@@ -80,8 +80,11 @@ void	hook(void *param)
 
 	player = param;
 	if (mlx_is_key_down(player->mlx, MLX_KEY_ESCAPE))
+	{
 		mlx_close_window(player->mlx);//Liberar todo antes de llamar a mlx_cose_windows mlx_free_image y struct
-	ft_orientation_hook(player);
+	}	
 	ft_move_hook(player);
+	ft_orientation_hook(player);
+
 	ft_draw(player);
 }
