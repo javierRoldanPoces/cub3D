@@ -2,13 +2,13 @@
 
 void	ft_free_textures(t_map *map)
 {
-	if (map->text->n != NULL)
+	if (map->text->n)
 		mlx_delete_texture(map->text->n);
-	if (map->text->s != NULL)
+	if (map->text->s)
 		mlx_delete_texture(map->text->s);
-	if (map->text->w != NULL)
+	if (map->text->w)
 		mlx_delete_texture(map->text->w);
-	if (map->text->n != NULL)
+	if (map->text->e)
 		mlx_delete_texture(map->text->e);
 }
 

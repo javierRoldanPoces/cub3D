@@ -36,7 +36,7 @@ void	get_textures(t_map *map)
 	map->text->e = mlx_load_png(map->east_texture);
 	if (!map->text->n || !map->text->s || !map->text->w || !map->text->e)
 	{
-		//ft_free_textures(map);
+		ft_free_textures(map); 
 		exit(-1);
 		//printf("Error carga de texturas\n");// Habra q liberar.
 	}	

@@ -43,10 +43,10 @@ void	ft_init_player(t_player *player)
 {
 	player->mapa = (t_map *)ft_calloc(sizeof(t_map), 1);
 	player->mapa->text = (t_textures *)malloc(sizeof(t_textures));
-	player->mapa->text->n = NULL;
-	player->mapa->text->s = NULL;
-	player->mapa->text->w = NULL;
-	player->mapa->text->e = NULL;
+	// player->mapa->text->n = NULL;
+	// player->mapa->text->s = NULL;
+	// player->mapa->text->w = NULL;
+	// player->mapa->text->e = NULL;
 }
 
 int	main(int argc, char **argv)
