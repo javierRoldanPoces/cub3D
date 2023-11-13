@@ -18,6 +18,7 @@ SRC =		src/main.c							\
 			src/raycaster/draw.c				\
 			src/raycaster/raycaster_0.c			\
 			src/raycaster/raycaster_1.c			\
+			src/hook/hook.c						\
 
 OBJT_DIR = objt
 

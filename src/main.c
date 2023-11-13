@@ -55,6 +55,7 @@ int	main(int argc, char **argv)
 		//print_data_map_arg(player.mapa);
 		ft_init_game(player);
 		mlx_image_to_window(player->mlx, player->walls, 0, 0);
+		mlx_loop_hook(player->mlx, &hook, player);
 		mlx_loop(player->mlx);
 		mlx_terminate(player->mlx);
 	}

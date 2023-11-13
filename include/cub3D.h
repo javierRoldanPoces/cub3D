@@ -143,4 +143,8 @@ void			ft_distance_perp_wall(t_player	*player);
 mlx_texture_t	*ft_load_texture(t_player *player);
 void			ft_calc_wallx(t_player *player);
 
+//hook
+void			hook(void *param);
+
+
 #endif
