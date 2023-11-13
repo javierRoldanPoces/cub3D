@@ -11,8 +11,8 @@
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <unistd.h>
-# define SPEED_R	0.05
-# define SPEED		0.1
+# define R_SPEED	0.05
+# define M_SPEED	0.1
 # define SCREEN_W	1024
 # define SCREEN_H	1024
 
