@@ -81,7 +81,9 @@ void	hook(void *param)
 	player = param;
 	if (mlx_is_key_down(player->mlx, MLX_KEY_ESCAPE))
 	{
-		mlx_close_window(player->mlx);//Liberar todo antes de llamar a mlx_cose_windows mlx_free_image y struct
+		mlx_close_window(player->mlx);
+		ft_free_game(player);
+		exit (1);
 	}	
 	ft_move_hook(player);
 	ft_orientation_hook(player);

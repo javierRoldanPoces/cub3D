@@ -146,5 +146,9 @@ void			ft_calc_wallx(t_player *player);
 //hook
 void			hook(void *param);
 
+//free
+void			ft_free_game(t_player *player);
+void			ft_free_textures(t_map *map);
+
 
 #endif

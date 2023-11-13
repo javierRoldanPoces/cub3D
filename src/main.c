@@ -34,16 +34,26 @@
 // 	printf("map->w = %d\n", map->width);
 // }
 
+void	leaks(void)
+{
+	system("leaks -q cub3D");
+}
+
 void	ft_init_player(t_player *player)
 {
 	player->mapa = (t_map *)ft_calloc(sizeof(t_map), 1);
 	player->mapa->text = (t_textures *)malloc(sizeof(t_textures));
-
+	player->mapa->text->n = NULL;
+	player->mapa->text->s = NULL;
+	player->mapa->text->w = NULL;
+	player->mapa->text->e = NULL;
 }
 
 int	main(int argc, char **argv)
 {
 	t_player		*player;
+
+	atexit(leaks);
 
 	player = (t_player *)malloc(sizeof(t_player));
 	//Funcion para inicializar las reservas necesarias de t_player

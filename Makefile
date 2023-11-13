@@ -19,6 +19,7 @@ SRC =		src/main.c							\
 			src/raycaster/raycaster_0.c			\
 			src/raycaster/raycaster_1.c			\
 			src/hook/hook.c						\
+			src/free/free_game.c				\
 
 OBJT_DIR = objt
 
