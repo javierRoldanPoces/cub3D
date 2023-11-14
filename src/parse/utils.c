@@ -56,7 +56,7 @@ char	*ft_convert(char *buffer)
 
 void	ft_error(char *msg, char *origin)
 {
-	ft_putstr_fd("Error: ", 2);
+	ft_putstr_fd("Error\n", 2);
 	ft_putstr_fd(msg, 2);
 	if (origin != NULL)
 	{

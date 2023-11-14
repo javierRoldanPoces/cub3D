@@ -9,7 +9,7 @@ static void	get_color(t_map *map)
 	| (map->ceiling->b << 8) | 255;
 }
 
-void	get_file_content(t_map *map, char *file)
+void	get_file_content(t_player *player, char *file)
 {
 	int	fd;
 	int	map_pos;
@@ -19,14 +19,14 @@ void	get_file_content(t_map *map, char *file)
 	else
 	{
 		map_pos = 0;
-		map->file = ft_strdup(file);
-		fd = open(map->file, O_RDONLY);
+		player->mapa->file = ft_strdup(file);
+		fd = open(player->mapa->file, O_RDONLY);
 		if (fd == -1)
-			ft_error(strerror(errno), map->file);
-		get_textures_and_colours(map, fd, &map_pos);
-		get_map(map, fd, &map_pos);
-		check_map(map);
-		get_color(map);
-		get_textures(map);
+			ft_error(strerror(errno), player->mapa->file);
+		get_textures_and_colours(player->mapa, fd, &map_pos);
+		get_map(player->mapa, fd, &map_pos);
+		check_map(player->mapa);
+		get_color(player->mapa);
+		get_textures(player);
 	}
 }

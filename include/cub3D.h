@@ -85,7 +85,7 @@ typedef struct s_player
 }	t_player;
 
 //get_file_content
-void			get_file_content(t_map *map, char *file);
+void			get_file_content(t_player *player, char *file);
 
 //parse/get_text_and_colours
 void			get_textures_and_colours(t_map *map, int fd, int *map_pos);
@@ -123,7 +123,7 @@ char			*gnl_strjoin(char *s1, char *s2, int flag);
 char			*gnl_substr(char *s, unsigned int start, size_t len, int flag);
 
 //init
-void			get_textures(t_map *map);
+void			get_textures(t_player *player);
 void			ft_init_game(t_player	*player);
 void			ft_orientation(t_player *player);
 

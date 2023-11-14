@@ -54,7 +54,7 @@ int	main(int argc, char **argv)
 	ft_init_player(player);
 	if (argc == 2)
 	{
-		get_file_content(player->mapa, argv[1]);
+		get_file_content(player, argv[1]);
 		ft_init_game(player);
 		if (mlx_image_to_window(player->mlx, player->walls, 0, 0) < 0)
 			exit (-1);

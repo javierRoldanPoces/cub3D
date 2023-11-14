@@ -28,19 +28,18 @@ void	ft_orientation(t_player *player)
 	}
 }
 
-void	get_textures(t_map *map)
+void	get_textures(t_player *player)
 {
-	map->text->n = mlx_load_png(map->north_texture);
-	map->text->s = mlx_load_png(map->south_texture);
-	map->text->w = mlx_load_png(map->west_texture);
-	map->text->e = mlx_load_png(map->east_texture);
-	if (!map->text->n || !map->text->s || !map->text->w || !map->text->e)
+	player->mapa->text->n = mlx_load_png(player->mapa->north_texture);
+	player->mapa->text->s = mlx_load_png(player->mapa->south_texture);
+	player->mapa->text->w = mlx_load_png(player->mapa->west_texture);
+	player->mapa->text->e = mlx_load_png(player->mapa->east_texture);
+	if (!player->mapa->text->n || !player->mapa->text->s
+		|| !player->mapa->text->w || !player->mapa->text->e)
 	{
-		ft_free_textures(map);
+		ft_free_game(player);
 		exit(-1);
-	}	
-	else
-		printf("Texturas cargadas correctamente\n");
+	}
 }
 
 void	ft_init_game(t_player	*player)
