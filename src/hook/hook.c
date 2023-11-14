@@ -2,9 +2,9 @@
 
 /*
 both camera direction and camera plane must be rotated 
-rotated to the left or right
+rotated to the left
 */
-static void	ft_orientation_hook(t_player	*player)
+static void	ft_orientation_left_hook(t_player	*player)
 {
 	double		olddirx;
 	double		oldplanex;
@@ -20,6 +20,17 @@ static void	ft_orientation_hook(t_player	*player)
 		player->plan_y = oldplanex * sin(R_SPEED) + player->plan_y \
 		* cos(R_SPEED);
 	}
+}
+
+/*
+both camera direction and camera plane must be rotated 
+rotated to the right
+*/
+static void	ft_orientation_right_hook(t_player *player)
+{
+	double		olddirx;
+	double		oldplanex;
+
 	olddirx = player->d_x;
 	oldplanex = player->plan_x;
 	if (mlx_is_key_down(player->mlx, MLX_KEY_RIGHT))
@@ -34,26 +45,8 @@ static void	ft_orientation_hook(t_player	*player)
 	}
 }
 
-static void	ft_move_hook(t_player *player)
+static void	ft_move_right_left_hook(t_player *player)
 {
-	if (mlx_is_key_down(player->mlx, MLX_KEY_W))
-	{
-		if (player->map[(int)(player->p_x + player->d_x * M_SPEED)] \
-		[(int)player->p_y] != '1')
-			player->p_x += player->d_x * M_SPEED;
-		if (player->map[(int)player->p_x] \
-		[(int)(player->p_y + player->d_y * M_SPEED)] != '1')
-			player->p_y += player->d_y * M_SPEED;
-	}
-	if (mlx_is_key_down(player->mlx, MLX_KEY_S))
-	{
-		if (player->map[(int)(player->p_x - player->d_x * M_SPEED)] \
-		[(int)player->p_y] != '1')
-			player->p_x -= player->d_x * M_SPEED;
-		if (player->map[(int)player->p_x] \
-		[(int)(player->p_y - player->d_y * M_SPEED)] != '1')
-			player->p_y -= player->d_y * M_SPEED;
-	}
 	if (mlx_is_key_down(player->mlx, MLX_KEY_D))
 	{
 		if (player->map[(int)(player->p_x + player->plan_x * M_SPEED)] \
@@ -74,6 +67,28 @@ static void	ft_move_hook(t_player *player)
 	}
 }
 
+static void	ft_move_front_back_hook(t_player *player)
+{
+	if (mlx_is_key_down(player->mlx, MLX_KEY_W))
+	{
+		if (player->map[(int)(player->p_x + player->d_x * M_SPEED)] \
+		[(int)player->p_y] != '1')
+			player->p_x += player->d_x * M_SPEED;
+		if (player->map[(int)player->p_x] \
+		[(int)(player->p_y + player->d_y * M_SPEED)] != '1')
+			player->p_y += player->d_y * M_SPEED;
+	}
+	if (mlx_is_key_down(player->mlx, MLX_KEY_S))
+	{
+		if (player->map[(int)(player->p_x - player->d_x * M_SPEED)] \
+		[(int)player->p_y] != '1')
+			player->p_x -= player->d_x * M_SPEED;
+		if (player->map[(int)player->p_x] \
+		[(int)(player->p_y - player->d_y * M_SPEED)] != '1')
+			player->p_y -= player->d_y * M_SPEED;
+	}
+}
+
 void	hook(void *param)
 {
 	t_player	*player;
@@ -85,8 +100,9 @@ void	hook(void *param)
 		ft_free_game(player);
 		exit (1);
 	}	
-	ft_move_hook(player);
-	ft_orientation_hook(player);
-
+	ft_move_front_back_hook(player);
+	ft_move_right_left_hook(player);
+	ft_orientation_left_hook(player);
+	ft_orientation_right_hook(player);
 	ft_draw(player);
 }

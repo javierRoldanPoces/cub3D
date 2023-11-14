@@ -43,10 +43,6 @@ void	ft_init_player(t_player *player)
 {
 	player->mapa = (t_map *)ft_calloc(sizeof(t_map), 1);
 	player->mapa->text = (t_textures *)malloc(sizeof(t_textures));
-	// player->mapa->text->n = NULL;
-	// player->mapa->text->s = NULL;
-	// player->mapa->text->w = NULL;
-	// player->mapa->text->e = NULL;
 }
 
 int	main(int argc, char **argv)
@@ -54,17 +50,14 @@ int	main(int argc, char **argv)
 	t_player		*player;
 
 	atexit(leaks);
-
 	player = (t_player *)malloc(sizeof(t_player));
-	//Funcion para inicializar las reservas necesarias de t_player
-	//player->mapa = (t_map *)ft_calloc(sizeof(t_map), 1);
 	ft_init_player(player);
 	if (argc == 2)
 	{
 		get_file_content(player->mapa, argv[1]);
-		//print_data_map_arg(player.mapa);
 		ft_init_game(player);
-		mlx_image_to_window(player->mlx, player->walls, 0, 0);
+		if (mlx_image_to_window(player->mlx, player->walls, 0, 0) < 0)
+			exit (-1);
 		mlx_loop_hook(player->mlx, &hook, player);
 		mlx_loop(player->mlx);
 		mlx_terminate(player->mlx);

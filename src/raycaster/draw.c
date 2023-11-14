@@ -2,7 +2,7 @@
 
 /*
 Funcion que pintara la pantalla con los colores 
-ceiling y floor recibidos en el archivo, pintara midat superior
+ceiling y floor recibidos en el archivo, pintara mitad superior
 en color ceiling y mitad inferior color floor
 */
 void	ft_draw_bg(t_player *player)
@@ -24,7 +24,8 @@ void	ft_draw_bg(t_player *player)
 		}
 		i++;
 	}
-	mlx_image_to_window(player->mlx, player->bg, 0, 0);
+	if (mlx_image_to_window(player->mlx, player->bg, 0, 0))
+		exit (-1);
 }
 
 void	ft_draw(t_player *player)
@@ -37,32 +38,26 @@ void	ft_draw(t_player *player)
 		mlx_delete_image(player->mlx, player->walls);
 		player->walls = mlx_new_image(player->mlx, SCREEN_W, SCREEN_H);
 	}
-	x = 0;
-	while (x < SCREEN_W)
+	x = -1;
+	while (++x < SCREEN_W)
 	{
-		//calculate ray position and direction
 		player->cam = 2 * x / (double)SCREEN_W - 1;
 		player->ray_d_x = player->d_x + player->plan_x * player->cam;
 		player->ray_d_y = player->d_y + player->plan_y * player->cam;
-		//which box of the map we're in
 		player->map_x = (int)player->p_x;
 		player->map_y = (int)player->p_y;
-		////length of ray from one x or y-side to next x or y-side
 		ft_calc_delta(player);
 		player->hit = 0;
 		ft_calc_step_and_initial_sidedist(player);
-		//funcion para calcular pasos y valor inicial de sidedist (side_d_x y side_d_y)
 		ft_dda_algorithm(player);
-		//cargar textura correcta dependiendo del valor de side(lado que golpea el rayo)
 		texture = ft_load_texture(player);
 		ft_calc_wallx(player);
 		ft_draw_wall(texture, x, player);
-		x++;
 	}
 	mlx_image_to_window(player->mlx, player->walls, 0, 0);
 }
 
-uint32_t	ft_get_uin32(uint8_t *conv, int n)
+static uint32_t	ft_get_uin32(uint8_t *conv, int n)
 {
 	uint32_t	u;
 
@@ -93,23 +88,3 @@ void	ft_draw_wall(mlx_texture_t *texture, int x, t_player *player)
 		y++;
 	}
 }
-
-/*
-Finally, the current buffer pixel is set to this color, and we move on to the next y.
-
-     // How much to increase the texture coordinate per screen pixel
-      double step = 1.0 * texHeight / lineHeight;
-     // Starting texture coordinate
-      double texPos = (drawStart - h / 2 + lineHeight / 2) * step;
-      for(int y = drawStart; y<drawEnd; y++)
-      {
-        // Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
-        int texY = (int)texPos & (texHeight - 1);
-        texPos += step;
-        Uint32 color = texture[texNum][texHeight * texY + texX];
-        //make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
-        if(side == 1) color = (color >> 1) & 8355711;
-        buffer[y][x] = color;
-      }
-    }
-*/

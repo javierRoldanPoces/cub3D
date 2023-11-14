@@ -12,11 +12,10 @@ void	ft_free_textures(t_map *map)
 		mlx_delete_texture(map->text->e);
 }
 
-
 void	ft_free_game(t_player *player)
 {
 	ft_free_textures(player->mapa);
 	free(player->mapa->text);
 	ft_free(player->mapa);
-	//free(player);
+	free(player);
 }

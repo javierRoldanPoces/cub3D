@@ -36,9 +36,8 @@ void	get_textures(t_map *map)
 	map->text->e = mlx_load_png(map->east_texture);
 	if (!map->text->n || !map->text->s || !map->text->w || !map->text->e)
 	{
-		ft_free_textures(map); 
+		ft_free_textures(map);
 		exit(-1);
-		//printf("Error carga de texturas\n");// Habra q liberar.
 	}	
 	else
 		printf("Texturas cargadas correctamente\n");
@@ -51,8 +50,14 @@ void	ft_init_game(t_player	*player)
 	player->p_y = player->mapa->p_y + 0.5;
 	ft_orientation(player);
 	player->mlx = mlx_init(SCREEN_W, SCREEN_H, "cub3D", false);
+	if (!player->mlx)
+		exit (-1);
 	player->bg = mlx_new_image(player->mlx, SCREEN_W, SCREEN_H);
+	if (!player->bg)
+		exit (-1);
 	ft_draw_bg(player);
 	player->walls = mlx_new_image(player->mlx, SCREEN_W, SCREEN_H);
+	if (!player->walls)
+		exit(-1);
 	ft_draw(player);
 }
