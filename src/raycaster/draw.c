@@ -1,10 +1,19 @@
 #include "../../include/cub3D.h"
 
-/*
-Funcion que pintara la pantalla con los colores 
-ceiling y floor recibidos en el archivo, pintara mitad superior
-en color ceiling y mitad inferior color floor
-*/
+static uint32_t	ft_get_uin32(uint8_t *conv, int n);
+static void		ft_loop_draw(t_player *player);
+
+static uint32_t	ft_get_uin32(uint8_t *conv, int n)
+{
+	uint32_t	u;
+
+	u = conv[n] << 24;
+	u += conv[n + 1] << 16;
+	u += conv[n + 2] << 8;
+	u += conv[n + 3];
+	return (u);
+}
+
 void	ft_draw_bg(t_player *player)
 {
 	int	i;
@@ -24,22 +33,17 @@ void	ft_draw_bg(t_player *player)
 		}
 		i++;
 	}
-	if (mlx_image_to_window(player->mlx, player->bg, 0, 0))
-		exit (-1);
+	if (mlx_image_to_window(player->mlx, player->bg, 0, 0) < 0)
+		exit (EXIT_FAILURE);
 }
 
-void	ft_draw(t_player *player)
+static void	ft_loop_draw(t_player *player)
 {
 	int				x;
 	mlx_texture_t	*texture;
 
-	if (player->walls)
-	{
-		mlx_delete_image(player->mlx, player->walls);
-		player->walls = mlx_new_image(player->mlx, SCREEN_W, SCREEN_H);
-	}
-	x = -1;
-	while (++x < SCREEN_W)
+	x = 0;
+	while (x < SCREEN_W)
 	{
 		player->cam = 2 * x / (double)SCREEN_W - 1;
 		player->ray_d_x = player->d_x + player->plan_x * player->cam;
@@ -53,19 +57,20 @@ void	ft_draw(t_player *player)
 		texture = ft_load_texture(player);
 		ft_calc_wallx(player);
 		ft_draw_wall(texture, x, player);
+		x++;
 	}
-	mlx_image_to_window(player->mlx, player->walls, 0, 0);
 }
 
-static uint32_t	ft_get_uin32(uint8_t *conv, int n)
+void	ft_draw(t_player *player)
 {
-	uint32_t	u;
-
-	u = conv[n] << 24;
-	u += conv[n + 1] << 16;
-	u += conv[n + 2] << 8;
-	u += conv[n + 3];
-	return (u);
+	if (player->walls)
+	{
+		mlx_delete_image(player->mlx, player->walls);
+		player->walls = mlx_new_image(player->mlx, SCREEN_W, SCREEN_H);
+	}
+	ft_loop_draw(player);
+	if (mlx_image_to_window(player->mlx, player->walls, 0, 0) < 0)
+		exit (EXIT_FAILURE);
 }
 
 void	ft_draw_wall(mlx_texture_t *texture, int x, t_player *player)

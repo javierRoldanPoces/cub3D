@@ -84,68 +84,70 @@ typedef struct s_player
 	t_map		*mapa;
 }	t_player;
 
-//get_file_content
+//src/parse/get_file_content.c
 void			get_file_content(t_player *player, char *file);
 
-//parse/get_text_and_colours
+//src/parse/get_text_and_colours.c
 void			get_textures_and_colours(t_map *map, int fd, int *map_pos);
 int				allocate_text_and_colour(t_map *map, char *buff, int *counter);
 int				get_texture(char **map_texture, char **split, int *counter);
 int				get_colour(t_colour **map_colour, char **split, int *counter);
 
-//parse/get_map
+//src/parse/get_map.c
 void			get_map(t_map *map, int fd, int *map_pos);
 void			count_map_lines(t_map *map, int fd, int *map_pos);
 void			get_map_line(t_map *map, int *new_fd, int map_pos);
 void			allocate_map(t_map *map, int new_fd);
 void			square_up_map(t_map *map);
 
-//parse/check_map
+//src/parse/check_map.c
 void			check_map(t_map *map);
 void			check_valid_char(char c, int *wall);
 void			check_player_position(t_map *map, int n, int i, int *player);
 void			check_walls(t_map *map, int n, int i);
 void			check_sides(t_map *map, int n, int i);
 
-//parse/utils
+//src/parse/utils.c
 char			*get_line(int fd, int *map_pos);
 int				get_tabs(char *buffer);
 char			*ft_convert(char *buffer);
 void			ft_error(char *message, char *file);
 void			ft_free(t_map *map);
 
-//get_next_line
+//src/gnl/get_next_line.c
 char			*get_next_line(int fd);
+
+//src/gnl/get_next_line_utils.c
 void			*gnl_calloc(size_t nmemb, size_t size);
 char			*gnl_strchr(char *s, int c);
 char			*gnl_strdup(char *s);
 char			*gnl_strjoin(char *s1, char *s2, int flag);
 char			*gnl_substr(char *s, unsigned int start, size_t len, int flag);
 
-//init
-void			get_textures(t_player *player);
+//src/init/init.c
+void			ft_init_player(t_player *player);
 void			ft_init_game(t_player	*player);
-void			ft_orientation(t_player *player);
 
-//draw
+//src/raycaster/draw.c
 void			ft_draw_bg(t_player *player);
 void			ft_draw(t_player *player);
 void			ft_draw_wall(mlx_texture_t *texture, int x, t_player *player);
 
 
-//raycasting
+//src/raycaster/raycaster_o.c
 void			ft_calc_delta(t_player *player);
 void			ft_calc_step_and_initial_sidedist(t_player *player);
 void			ft_dda_algorithm(t_player *player);
 void			ft_distance_perp_wall(t_player	*player);
+
+//src/raycaster/raycaster_1.c
 mlx_texture_t	*ft_load_texture(t_player *player);
 void			ft_calc_wallx(t_player *player);
 
-//hook
+//src/hook/hook.c
 void			hook(void *param);
 
-//free
+//src/free/free_game.c
 void			ft_free_game(t_player *player);
-void			ft_free_textures(t_map *map);
 
 #endif

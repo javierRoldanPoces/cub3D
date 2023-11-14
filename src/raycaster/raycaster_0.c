@@ -66,11 +66,6 @@ void	ft_dda_algorithm(t_player *player)
 	ft_distance_perp_wall(player);
 }
 
-/*
-Calcula distancia perpendicular al rayo.
-Calcula h de la linea para dibujar en la pantalla
-calcula el píxel más bajo y más alto para rellenar en la raya
-*/
 void	ft_distance_perp_wall(t_player	*player)
 {
 	if (player->side == 0 || player->side == 2)

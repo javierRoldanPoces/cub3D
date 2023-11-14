@@ -1,6 +1,8 @@
 #include "../../include/cub3D.h"
 
-void	ft_free_textures(t_map *map)
+static void	ft_free_textures(t_map *map);
+
+static void	ft_free_textures(t_map *map)
 {
 	if (map->text->n)
 		mlx_delete_texture(map->text->n);

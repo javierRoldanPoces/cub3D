@@ -1,5 +1,10 @@
 #include "../../include/cub3D.h"
 
+static void	ft_orientation_left_hook(t_player	*player);
+static void	ft_orientation_right_hook(t_player *player);
+static void	ft_move_right_left_hook(t_player *player);
+static void	ft_move_front_back_hook(t_player *player);
+
 /*
 both camera direction and camera plane must be rotated 
 rotated to the left
@@ -98,7 +103,7 @@ void	hook(void *param)
 	{
 		mlx_close_window(player->mlx);
 		ft_free_game(player);
-		exit (1);
+		exit (EXIT_SUCCESS);
 	}	
 	ft_move_front_back_hook(player);
 	ft_move_right_left_hook(player);

@@ -1,6 +1,8 @@
 #include "../../include/cub3D.h"
 
-void	ft_orientation(t_player *player)
+static void	ft_orientation(t_player *player);
+
+static void	ft_orientation(t_player *player)
 {
 	player->d_x = 0;
 	player->d_y = 0;
@@ -28,18 +30,10 @@ void	ft_orientation(t_player *player)
 	}
 }
 
-void	get_textures(t_player *player)
+void	ft_init_player(t_player *player)
 {
-	player->mapa->text->n = mlx_load_png(player->mapa->north_texture);
-	player->mapa->text->s = mlx_load_png(player->mapa->south_texture);
-	player->mapa->text->w = mlx_load_png(player->mapa->west_texture);
-	player->mapa->text->e = mlx_load_png(player->mapa->east_texture);
-	if (!player->mapa->text->n || !player->mapa->text->s
-		|| !player->mapa->text->w || !player->mapa->text->e)
-	{
-		ft_free_game(player);
-		exit(-1);
-	}
+	player->mapa = (t_map *)ft_calloc(sizeof(t_map), 1);
+	player->mapa->text = (t_textures *)malloc(sizeof(t_textures));
 }
 
 void	ft_init_game(t_player	*player)
@@ -50,13 +44,13 @@ void	ft_init_game(t_player	*player)
 	ft_orientation(player);
 	player->mlx = mlx_init(SCREEN_W, SCREEN_H, "cub3D", false);
 	if (!player->mlx)
-		exit (-1);
+		exit (EXIT_FAILURE);
 	player->bg = mlx_new_image(player->mlx, SCREEN_W, SCREEN_H);
 	if (!player->bg)
-		exit (-1);
+		exit (EXIT_FAILURE);
 	ft_draw_bg(player);
 	player->walls = mlx_new_image(player->mlx, SCREEN_W, SCREEN_H);
 	if (!player->walls)
-		exit(-1);
+		exit(EXIT_FAILURE);
 	ft_draw(player);
 }

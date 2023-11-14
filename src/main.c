@@ -39,12 +39,6 @@ void	leaks(void)
 	system("leaks -q cub3D");
 }
 
-void	ft_init_player(t_player *player)
-{
-	player->mapa = (t_map *)ft_calloc(sizeof(t_map), 1);
-	player->mapa->text = (t_textures *)malloc(sizeof(t_textures));
-}
-
 int	main(int argc, char **argv)
 {
 	t_player		*player;
@@ -57,7 +51,7 @@ int	main(int argc, char **argv)
 		get_file_content(player, argv[1]);
 		ft_init_game(player);
 		if (mlx_image_to_window(player->mlx, player->walls, 0, 0) < 0)
-			exit (-1);
+			exit (EXIT_FAILURE);
 		mlx_loop_hook(player->mlx, &hook, player);
 		mlx_loop(player->mlx);
 		mlx_terminate(player->mlx);

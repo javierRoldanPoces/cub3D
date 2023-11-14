@@ -12,9 +12,6 @@ mlx_texture_t	*ft_load_texture(t_player *player)
 		return (player->mapa->text->w);
 }
 
-/*
-Funcion que calcula punto exacto donde fue golpeado el muro
-*/
 void	ft_calc_wallx(t_player *player)
 {
 	double	wallx;
