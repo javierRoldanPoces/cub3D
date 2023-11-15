@@ -1,12 +1,17 @@
-NO textures/bluestone.png
+                        NO textures/bluestone.png               
+    
+
+  F    255,165,0                                    
+   C 135,206,235    
+                              
+        SO textures/colorstone.png              
+  WE textures/redbrick.png        
+ EA textures/eagle.png         
+
+                   
 
 
-F 255,165,0
-C 135,206,235
 
-SO textures/colorstone.png
-WE                      textures/redbrick.png
-EA textures/eagle.png
 
 
 

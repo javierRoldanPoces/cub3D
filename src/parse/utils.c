@@ -3,15 +3,21 @@
 char	*get_line(int fd, int *map_line)
 {
 	char	*buffer;
+	char	**split_checker;
 
 	buffer = get_next_line(fd);
+	split_checker = ft_split(buffer, ' ');
 	(*map_line)++;
-	while (ft_strncmp(buffer, "\n", 2) == 0)
+	while (ft_strncmp(buffer, "\n", 2) == 0
+		|| ft_strncmp(split_checker[0], "\n", 2) == 0)
 	{
 		free(buffer);
+		ft_free_split(split_checker);
 		buffer = get_next_line(fd);
+		split_checker = ft_split(buffer, ' ');
 		(*map_line)++;
 	}
+	ft_free_split(split_checker);
 	return (buffer);
 }
 

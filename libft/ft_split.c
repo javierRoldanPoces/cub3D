@@ -21,7 +21,8 @@ static int	ft_string_counter(char *s, char c)
 	count = 0;
 	while (s[i] != '\0')
 	{
-		if (s[i] != c && (s[i + 1] == c || s[i + 1] == '\0'))
+		if ((s[i] != c &&s[i] != '\t') && (s[i + 1] == c
+			|| s[i + 1] == '\t' || s[i + 1] == '\0'))
 			count++;
 		i++;
 	}
@@ -30,7 +31,7 @@ static int	ft_string_counter(char *s, char c)
 
 static unsigned int	ft_string_start(char *s, char c, unsigned int start)
 {
-	while (s[start] != '\0' && s[start] == c)
+	while (s[start] != '\0' && (s[start] == c || s[start] == '\t'))
 		start++;
 	return (start);
 }
@@ -40,7 +41,7 @@ static size_t	ft_string_len(char *s, char c, unsigned int start)
 	size_t	i;
 
 	i = 0;
-	while (s[start] != '\0' && s[start] != c)
+	while (s[start] != '\0' && (s[start] != c || s[start] == '\t'))
 	{
 		start++;
 		i++;
@@ -53,9 +54,13 @@ void	ft_free_split(char **str)
 	int	n;
 
 	n = 0;
-	while (str[n] != NULL)
-		free(str[n++]);
-	free(str);
+	if (str != NULL)
+	{
+		while (str[n] != NULL)
+			free(str[n++]);
+		free(str);
+	}
+	str = NULL;
 }
 
 char	**ft_split(char *s, char c)

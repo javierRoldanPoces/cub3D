@@ -19,7 +19,8 @@ int	allocate_text_and_colour(t_map *map, char *buff, int *counter)
 	char	**split;
 
 	split = ft_split(buff, ' ');
-	if (split[0] == NULL || split[1] == NULL || split[2] != NULL)
+	if (split[0] == NULL || split[1] == NULL
+		|| (split[2] != NULL && ft_strncmp(split[2], "\n", 2) != 0))
 		ft_error("invalid text line", buff);
 	free(buff);
 	if (map->north_texture == NULL && ft_strncmp(split[0], "NO", 3) == 0)
