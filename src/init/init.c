@@ -10,22 +10,22 @@ static void	ft_orientation(t_player *player)
 	player->plan_y = 0;
 	if (player->mapa->orientation == 'N')
 	{
-		player->d_x = -1.1;
+		player->d_x = -1.5;
 		player->plan_y = 0.66;
 	}
 	else if (player->mapa->orientation == 'S')
 	{
-		player->d_x = 1.1;
+		player->d_x = 1.5;
 		player->plan_y = -0.66;
 	}
 	else if (player->mapa->orientation == 'E')
 	{
-		player->d_y = 1.1;
+		player->d_y = 1.5;
 		player->plan_x = 0.66;
 	}
 	else if (player->mapa->orientation == 'W')
 	{
-		player->d_y = -1.1;
+		player->d_y = -1.5;
 		player->plan_x = -0.66;
 	}
 }
