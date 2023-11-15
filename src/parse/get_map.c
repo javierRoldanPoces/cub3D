@@ -30,7 +30,7 @@ void	count_map_lines(t_map *map, int fd, int *map_pos)
 	{
 		buffer = get_next_line(fd);
 		if (buffer != NULL && ft_strncmp(buffer, "\n", 2) != 0)
-			ft_error("invalid line", buffer);
+			ft_error("invalid map", NULL);
 		free(buffer);
 	}
 }
